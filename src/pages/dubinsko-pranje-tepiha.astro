@@ -69,7 +69,7 @@ const faq = [
   ],
   [
     'Da li je dolazak besplatan i koje delove Beograda pokrivate?',
-    'Dolazak ne naplaćujemo na teritoriji Beograda i okolnih bližih opština, uz uslov da pranje vredi više od 1000 din. Radimo na Novom Beogradu, u Zemunu, na Voždovcu i u ostalim opštinama, a takođe u Pančevu, Novom Sadu, Zrenjaninu, Smederevu i Požarevcu.',
+    'Dolazak ne naplaćujemo na teritoriji Beograda i okolnih bližih opština, uz uslov da pranje vredi više od 1000 din. Radimo na Novom Beogradu, u Zemunu, na Voždovcu i u ostalim opštinama, a takođe u Pančevu, Novom Sadu i Zrenjaninu.',
   ],
   [
     'Koliko često treba prati tepih?',
@@ -86,7 +86,7 @@ const schema = {
       serviceType: 'Dubinsko pranje tepiha, staza i itisona',
       description:
         'Dubinsko pranje tepiha, staza i itisona na adresi klijenta profesionalnom Karcher opremom. Cena 250 din./m².',
-      provider: { '@type': 'LocalBusiness', name: 'Clean Solutions', telephone: '+381652389201' },
+      provider: { '@type': 'LocalBusiness', name: 'IV PRANJE 2020', telephone: '+381652389201' },
       areaServed: [
         'Beograd',
         'Novi Beograd',
@@ -95,8 +95,6 @@ const schema = {
         'Pančevo',
         'Novi Sad',
         'Zrenjanin',
-        'Smederevo',
-        'Požarevac',
       ].map((n) => ({ '@type': 'City', name: n })),
       offers: {
         '@type': 'Offer',
@@ -134,8 +132,8 @@ const schema = {
 ---
 
 <Layout
-  title='Dubinsko pranje tepiha Beograd cena 250 din/m² | Clean Solutions'
-  ogTitle='Dubinsko pranje tepiha Beograd | Clean Solutions'
+  title='Dubinsko pranje tepiha Beograd cena 250 din/m² | IV PRANJE 2020'
+  ogTitle='Dubinsko pranje tepiha Beograd | IV PRANJE 2020'
   metaDescription='Dubinsko pranje tepiha u Beogradu na Vašoj adresi: tepih servis Novi Beograd, Zemun, Voždovac. Karcher oprema, cena 250 din/m², dolazak besplatan.'
   canonical=`https://dubinskopranjebeograd.com${path}`
 >
@@ -474,8 +472,26 @@ const schema = {
         </p>
       </article>
       <article class='sub reveal'>
+        <h3>Pranje tepiha Palilula</h3>
+        <p>
+          Pranje tepiha na Paliluli obavljamo dolaskom na Vašu adresu, bilo da se
+          radi o stanu, kući ili poslovnom prostoru. Koristimo profesionalne mašine
+          za efikasno uklanjanje prljavštine i osvežavanje tepiha na licu mesta.
+        </p>
+      </article>
+
+      <article class='sub reveal'>
+        <h3>Pranje tepiha Čukarica</h3>
+        <p>
+          Tepih servis na Čukarici pruža uslugu pranja tepiha na Vašoj adresi.
+          Naši tehničari dolaze sa potrebnom opremom i primenjuju postupak u tri
+          faze: naprskavanje, četkanje i usisavanje. Pozovite nas i dogovorite
+          termin koji Vam odgovara.
+        </p>
+      </article>
+      <article class='sub reveal'>
         <h3>Tepih servisi Beograd i okolina</h3><p>
-          Pored Beograda, tepihe perimo u Pančevu, Novom Sadu, Zrenjaninu, Smederevu i Požarevcu.
+          Pored Beograda, tepihe perimo u Pančevu, Novom Sadu i Zrenjaninu.
         </p>
       </article>
     </div>
@@ -483,11 +499,11 @@ const schema = {
       <li class='pill pill--line'>Novi Beograd</li>
       <li class='pill pill--line'>Zemun</li>
       <li class='pill pill--line'>Voždovac</li>
+      <li class='pill pill--line'>Palilula</li>
+      <li class='pill pill--line'>Čukarica</li>
       <li class='pill pill--line'>Pančevo</li>
       <li class='pill pill--line'>Novi Sad</li>
       <li class='pill pill--line'>Zrenjanin</li>
-      <li class='pill pill--line'>Smederevo</li>
-      <li class='pill pill--line'>Požarevac</li>
     </ul>
   </section>
 

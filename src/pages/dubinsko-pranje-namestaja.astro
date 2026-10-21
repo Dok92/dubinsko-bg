@@ -68,7 +68,7 @@ const faq = [
   ],
   [
     'Da li je dolazak besplatan?',
-    'Dolazak ne naplaćujemo na teritoriji Beograda i okolnih bližih opština, uz uslov da pranje vredi više od 1000 din. Radimo i u Pančevu, Novom Sadu, Zrenjaninu, Smederevu i Požarevcu.',
+    'Dolazak ne naplaćujemo na teritoriji Beograda i okolnih bližih opština, uz uslov da pranje vredi više od 1000 din. Radimo i u Pančevu, Novom Sadu i Zrenjaninu.',
   ],
 ];
 
@@ -81,8 +81,8 @@ const schema = {
       serviceType: 'Dubinsko čišćenje nameštaja i dušeka',
       description:
         'Dubinsko pranje nameštaja na adresi klijenta profesionalnom Karcher opremom: trosedi, dvosedi, fotelje, stolice, kreveti i dušeci.',
-      provider: { '@type': 'LocalBusiness', name: 'Clean Solutions', telephone: '+381652389201' },
-      areaServed: ['Beograd', 'Pančevo', 'Novi Sad', 'Zrenjanin', 'Smederevo', 'Požarevac'].map(
+      provider: { '@type': 'LocalBusiness', name: 'IV PRANJE 2020', telephone: '+381652389201' },
+      areaServed: ['Beograd', 'Pančevo', 'Novi Sad', 'Zrenjanin'].map(
         (n) => ({ '@type': 'City', name: n }),
       ),
       offers: [
@@ -119,7 +119,7 @@ const schema = {
 
 <Layout
   title='Dubinsko pranje nameštaja Beograd cena od 300 din po komadu'
-  ogTitle='Dubinsko pranje nameštaja Beograd | Clean Solutions'
+  ogTitle='Dubinsko pranje nameštaja Beograd | IV PRANJE 2020'
   metaDescription='Dubinsko čišćenje nameštaja u Beogradu na Vašoj adresi: dubinsko pranje troseda, fotelja, stolica, kreveta, dušeka i dr. Karcher oprema, dolazak besplatan'
   canonical=`https://dubinskopranjebeograd.com${path}`
 >
@@ -436,7 +436,7 @@ const schema = {
       </article>
       <article class='sub reveal'>
         <h3>Pančevo, Novi Sad i drugi gradovi</h3><p>
-          Pored Beograda, nameštaj perimo u Pančevu, Novom Sadu, Zrenjaninu, Smederevu i Požarevcu.
+          Pored Beograda, nameštaj perimo u Pančevu, Novom Sadu i Zrenjaninu.
         </p>
       </article>
       <article class='sub reveal'>
