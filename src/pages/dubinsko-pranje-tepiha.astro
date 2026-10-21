@@ -1,0 +1,544 @@
+---
+import Layout from '../layouts/Layout.astro';
+import imgBefore from '../assets/carpet-before.webp';
+import imgAfter from '../assets/carpet-after.webp';
+import Faq from '../components/accordions/faq.astro';
+import Footer from '../components/main/Footer.astro';
+import References from '../components/main/References.astro';
+
+const path = '/dubinsko-pranje-tepiha';
+const origin = Astro.site?.origin ?? '';
+
+const steps = [
+  [
+    'Naprskavanje',
+    'Rastvor vode i profesionalnog Karcher praška ravnomerno nanosimo na celu površinu tepiha, staze ili itisona.',
+  ],
+  [
+    'Četkanje',
+    'Tepih pažljivo izčetkamo kako bi se prljavština, masnoća i fleke odvojile od vlakana, a da se vlakna pritom ne oštete.',
+  ],
+  [
+    'Usisavanje',
+    'Profesionalnom mašinom izvlačimo vodu i nečistoću do dubine od 10 cm. Postupak ponavljamo dok ne bude čisto.',
+  ],
+];
+
+const prices = [
+  ['Tepih / staza / itison', '250 din./m²'],
+
+  ['Automobil', 'od 4000 din.'],
+  ['Trosed', '2000 din.'],
+  ['Bračni krevet', '2000 din.'],
+  ['Dvosed', '1400 din.'],
+  ['Fotelja', '1000 din.'],
+  ['Stolica', '300 din.'],
+  ['Ugaona garnitura', '700 din. po sednom mestu'],
+  ['Singl dušek (jednostrano / obostrano)', '1200 / 1600 din.'],
+  ['Bračni dušek (jednostrano / obostrano)', '1600 / 2000 din.'],
+];
+
+const faq = [
+  [
+    'Koliko košta dubinsko pranje tepiha u Beogradu?',
+    'Cena dubinskog pranja tepiha, staze i itisona je 250 din./m². Cena je ista za sve tri vrste, a za veća pranja važe popusti od 10% i 15%. Ukupan iznos je lako izračunati: tepih od 12 m² košta 3000 din.',
+  ],
+  [
+    'Da li ste tepih servis i da li tepih nosite kod sebe?',
+    'Dubinsko pranje tepiha radimo kod Vas na adresi, pa tepih ne morate nigde da nosite niti da ostajete bez njega nekoliko dana. Mašine donosimo u Vaš stan, kuću ili poslovni prostor i pranje završavamo na licu mesta.',
+  ],
+  [
+    'Koje mašine i sredstva koristite za pranje tepiha?',
+    'Koristimo profesionalne Karcher mašine i Karcher prašak bez dugotrajnog mirisa, koji je neškodljiv po ljude i životinje. Zato su tepisi bezbedni za decu i kućne ljubimce čim se osuše.',
+  ],
+  [
+    'Do koje dubine usisavate nečistoću iz tepiha?',
+    'Do dubine od 10 cm. Kombinacijom mašine i hemije uklanjamo prašinu, neprijatne mirise, grinje i mikroorganizme koje običan usisivač ne može da dohvati.',
+  ],
+  [
+    'Da li možete garantovati da će se sve fleke oprati?',
+    'Većinu fleka operemo bez problema, ali ne možemo garantovati uklanjanje apsolutno svih. Najkritičnije su fleke od urina, krvi i motornog ulja. Garantujemo da će se tehničari maksimalno potruditi, a eventualne reklamacije prihvatamo.',
+  ],
+  [
+    'Koliko traje sušenje tepiha posle pranja?',
+    'Posle pranja ostaje oko 20% vlage. Pri spoljnoj temperaturi preko 20 stepeni sušenje traje do nekoliko sati, a zimi do 24 h. Utiču i uslovi u Vašem domu ili prostoru, pa je dobro provetravati prostoriju.',
+  ],
+  [
+    'Da li pranje može da ošteti tepih ili pod?',
+    'Isti proces primenjujemo godinama. Ako je tepih već oštećen ili dotrajao, tehničar će Vas upozoriti i ta mesta tretirati blaže. Zidovi, parket i laminat se ne oštećuju.',
+  ],
+  [
+    'Da li je dolazak besplatan i koje delove Beograda pokrivate?',
+    'Dolazak ne naplaćujemo na teritoriji Beograda i okolnih bližih opština, uz uslov da pranje vredi više od 1000 din. Radimo na Novom Beogradu, u Zemunu, na Voždovcu i u ostalim opštinama, a takođe u Pančevu, Novom Sadu, Zrenjaninu, Smederevu i Požarevcu.',
+  ],
+  [
+    'Koliko često treba prati tepih?',
+    'Obično preporučujemo dubinsko pranje tepiha jednom do dva puta godišnje, a češće u domovima sa decom i kućnim ljubimcima. Fleke je najbolje oprati što pre, dok se nisu učvrstile.',
+  ],
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Dubinsko pranje tepiha u Beogradu',
+      serviceType: 'Dubinsko pranje tepiha, staza i itisona',
+      description:
+        'Dubinsko pranje tepiha, staza i itisona na adresi klijenta profesionalnom Karcher opremom. Cena 250 din./m².',
+      provider: { '@type': 'LocalBusiness', name: 'Clean Solutions', telephone: '+381652389201' },
+      areaServed: [
+        'Beograd',
+        'Novi Beograd',
+        'Zemun',
+        'Voždovac',
+        'Pančevo',
+        'Novi Sad',
+        'Zrenjanin',
+        'Smederevo',
+        'Požarevac',
+      ].map((n) => ({ '@type': 'City', name: n })),
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'RSD',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: 250,
+          priceCurrency: 'RSD',
+          referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MTK' },
+        },
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Dubinsko pranje Beograd', item: `${origin}/` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Dubinsko pranje tepiha',
+          item: `${origin}${path}`,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title='Dubinsko pranje tepiha Beograd cena 250 din/m² | Clean Solutions'
+  ogTitle='Dubinsko pranje tepiha Beograd | Clean Solutions'
+  metaDescription='Dubinsko pranje tepiha u Beogradu na Vašoj adresi: tepih servis Novi Beograd, Zemun, Voždovac. Karcher oprema, cena 250 din/m², dolazak besplatan.'
+  canonical=`https://dubinskopranjebeograd.com${path}`
+>
+  <script type='application/ld+json' set:html={JSON.stringify(schema)} />
+
+  <section class='hero'>
+    <div class='hero__copy'>
+      <nav class='crumbs' aria-label='Putanja' data-in style='--i:0'>
+        <a href='/'>Dubinsko pranje Beograd</a><span aria-hidden='true'>/</span><span
+          aria-current='page'>Dubinsko pranje tepiha</span
+        >
+      </nav>
+      <h1 data-in style='--i:1'>Dubinsko pranje tepiha u Beogradu, <em>kod Vas</em> na adresi.</h1>
+      <p class='lead' data-in style='--i:2'>
+        Tepih servis koji dolazi do Vas. Dubinsko pranje tepiha, staza i itisona profesionalnom
+        Karcher opremom, po ceni od 250 din./m², bez odnošenja tepiha i bez čekanja. Preko 20.000
+        klijenata u 12 godina poslovanja.
+      </p>
+      <div class='actions' data-in style='--i:3'>
+        <a class='pill pill--solid pill--lg' href='tel:0652389201'>Zakaži pranje tepiha</a>
+        <a class='pill pill--line pill--lg' href='#cenovnik'>Pogledaj cene</a>
+      </div>
+      <ul class='facts' data-in style='--i:4'>
+        <li>Pranje tepiha 250 din./m², ista cena za tepih, stazu i itison</li>
+        <li>Dolazak besplatan u Beogradu i okolini</li>
+        <li>Prihvatamo sve eventualne reklamacije</li>
+      </ul>
+    </div>
+
+    <figure class='ba' id='ba' style='--pos:50%;--i:2' data-in>
+      <div class='ba__frame'>
+        <img
+          class='ba__img'
+          src={imgBefore.src}
+          width={imgBefore.width}
+          height={imgBefore.height}
+          alt='Tepih pre dubinskog pranja'
+          fetchpriority='high'
+          decoding='async'
+        />
+        <img
+          class='ba__img ba__img--after'
+          src={imgAfter.src}
+          width={imgAfter.width}
+          height={imgAfter.height}
+          alt='Isti tepih posle dubinskog pranja u Beogradu'
+          fetchpriority='high'
+          decoding='async'
+        />
+        <span class='ba__line' aria-hidden='true'></span>
+        <span class='ba__knob' aria-hidden='true'></span>
+        <input
+          class='ba__range'
+          id='baRange'
+          type='range'
+          min='0'
+          max='100'
+          step='0.1'
+          value='50'
+          aria-label='Uporedi tepih pre i posle pranja'
+        />
+        <span class='pill pill--tag ba__tag ba__tag--l'>Pre</span>
+        <span class='pill pill--tag ba__tag ba__tag--r'>Posle</span>
+      </div>
+      <figcaption>Stvarni rezultat sa terena. Povucite da uporedite.</figcaption>
+    </figure>
+  </section>
+
+  <section class='stats' aria-label='Naše iskustvo u brojkama'>
+    <div class='stats__in' data-stagger>
+      <div class='stat reveal'>
+        <b data-count='20000' data-suffix='+'>20.000+</b><span>zadovoljnih klijenata</span>
+      </div>
+      <div class='stat reveal'><b data-count='12'>12</b><span>godina poslovanja</span></div>
+      <div class='stat reveal'>
+        <b data-count='250' data-suffix=' din'>250 din</b><span>cena pranja po m²</span>
+      </div>
+      <div class='stat reveal'>
+        <b data-count='10' data-suffix=' cm'>10 cm</b><span>dubina usisavanja nečistoće</span>
+      </div>
+    </div>
+  </section>
+
+  <section class='section' id='sta-je'>
+    <div class='section__head reveal'>
+      <h2>Šta je dubinsko pranje tepiha</h2>
+      <p>
+        Dubinsko pranje tepiha je mašinski postupak kojim se prljavština izvlači iz samih vlakana, a
+        ne samo sa površine. Zato se razlika vidi, ali i oseća.
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Više od usisavanja</h3><p>
+          Usisivač uklanja prašinu sa površine, ali u dubini tepiha ostaju prljavština, znoj,
+          masnoća, grinje i mikroorganizmi. Dubinsko pranje tepiha izvlači nečistoću do 10 cm
+          dubine, tamo gde se skuplja najviše prljavštine.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Pranje, a ne samo čišćenje</h3><p>
+          Tepih se ne briše vlažnom krpom i ne tretira samo površinski. Rastvor se nanosi, izčetka i
+          zatim usisava zajedno sa nečistoćom. Tako se uklanjaju i neprijatni mirisi, a ne samo
+          prekrivaju.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Za sve vrste tepiha i itisona</h3><p>
+          Dubinsko pranje radimo na tepisima, stazama i itisonima u stanovima, kućama,
+          kancelarijama, hotelima i igraonicama. Isti postupak koristimo na svakoj od ovih površina.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Tepih servis bez nošenja</h3><p>
+          Klasičan tepih servis podrazumeva da tepih rolujete, odnesete ili čekate kurira. Mi
+          dolazimo na Vašu adresu, pa tepih ostaje u prostoriji u kojoj ga svakodnevno koristite.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <References />
+
+  <section class='section' id='cena'>
+    <div class='section__head reveal'>
+      <h2>Dubinsko pranje tepiha: cena po m²</h2>
+      <p>
+        Kada je u pitanju Cena dubinskog pranja tepiha zavisi od površine, pa tačno znate koliko
+        ćete platiti pre nego što tehničar počne sa radom.
+      </p>
+    </div>
+    <div class='pricing'>
+      <dl class='plist reveal'>
+        {
+          prices.map(([n, p]) => (
+            <div class='plist__row'>
+              <>
+                <dt>{n}</dt>
+                <dd>{p}</dd>
+              </>
+            </div>
+          ))
+        }
+      </dl>
+      <div class='discounts reveal'>
+        <div class='disc'><b>10%</b><span>popust za veća pranja</span></div>
+        <div class='disc'><b>15%</b><span>popust za najveća pranja</span></div>
+      </div>
+    </div>
+    <p class='note reveal'>Primer obračuna: tepih od 10 m² košta 2500 din.</p>
+  </section>
+
+  <section class='section section--tint' id='postupak'>
+    <div class='section__head reveal'>
+      <h2>Kako perimo tepih u tri koraka</h2>
+      <p>
+        Isti postupak primenjujemo godinama na hiljadama tepiha. Ponavlja se sve dok tehničar ne
+        utvrdi da je tepih čist.
+      </p>
+    </div>
+    <ol class='steps' data-stagger>
+      {
+        steps.map(([t, p], i) => (
+          <li class='step reveal'>
+            <span class='step__n'>{i + 1}</span>
+            <h3>{t}</h3>
+            <p>{p}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <h3 class='subhead reveal'>Prednosti dubinskog pranja tepiha</h3>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Čist do dubine</h3><p>
+          Prljavština, prašina i fleke uklanjaju se iz celog sloja vlakana, a ne samo sa vrha. Tepih
+          izgleda svežije, a vlakna ostaju mekša.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Bez neprijatnih mirisa</h3><p>
+          Karcher prašak koji koristimo nema dugotrajan miris. Mirise od hrane, ljubimaca i vlage
+          uklanjamo zajedno sa nečistoćom.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Bezbedno za porodicu</h3><p>
+          Sredstva su neškodljiva po ljude i životinje, pa se deca i kućni ljubimci vraćaju čistom
+          tepihu čim se osuši.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Poznata cena unapred</h3><p>
+          Cena je 250 din./m², bez skrivenih troškova, a za veća pranja imate popuste od 10% i 15%.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class='section' id='vrste'>
+    <div class='section__head reveal'>
+      <h2>Pranje tepiha, staza i itisona: gde sve radimo</h2>
+      <p>
+        Pranje tepiha Beograd radimo u domovima i poslovnim prostorima, na svim vrstama tepiha,
+        staza i itisona. Cena je za sve ista: <b>250 din./m²</b>.
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Dnevne i spavaće sobe</h3><p>
+          Tepisi u dnevnoj sobi su najopterećeniji: po njima se hoda, jede i igra. Dubinsko pranje
+          vraća im boju i uklanja nagomilanu prašinu i neprijatne mirise.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Dečje sobe</h3><p>
+          Deca provode vreme na podu, pa je čistoća tepiha posebno važna. Zato koristimo sredstva
+          bez dugotrajnog mirisa, neškodljiva po ljude i životinje.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Kancelarije i hoteli</h3><p>
+          Prostori sa mnogo prolaznika zahtevaju češće pranje. Radimo i sa zahtevnim prostorima kao
+          što su hoteli, pa pranje možete dogovoriti u terminu koji ne remeti rad.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Staze i itisoni</h3><p>
+          Hodnici, stepeništa i zidni itisoni peru se istim postupkom, po istoj ceni od 250 din./m².
+          Površinu računamo po kvadratnom metru, pa znate ukupan iznos pre početka rada.
+        </p>
+      </article>
+    </div>
+    <p class='note reveal'>
+      Primer obračuna: tepih dimenzija 3 x 4 m ima 12 m², pa dubinsko pranje košta 12 x 250 = 3000
+      din. Za veća pranja važe popusti od 10% i 15%.
+    </p>
+  </section>
+
+  <section class='section section--tint' id='fleke'>
+    <div class='section__head reveal'>
+      <h2>Fleke, mirisi i grinje: šta pranje uklanja</h2>
+      <p>
+        Iskreno o rezultatima: većinu fleka skidamo bez problema, ali ne možemo da garantujemo
+        uklanjanje apsolutno svih.
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Uobičajene fleke</h3><p>
+          Fleke od hrane i pića, blata i svakodnevne prljavštine u većini slučajeva operemo bez
+          problema. Što je fleka svežija, to je lakše uklanjamo, pa je najbolje oprati je što pre.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Teže fleke</h3><p>
+          Najkritičnije su fleke od urina, krvi i motornog ulja. Njih ponekad nije moguće u
+          potpunosti ukloniti. Tehničar će Vas obavestiti pre i tokom rada.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Neprijatni mirisi</h3><p>
+          Mirisi se zadržavaju duboko u vlaknima. Kombinacijom mašine i hemije uklanjamo ih zajedno
+          sa nečistoćom, umesto da ih samo prekrijemo osveživačem.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Grinje i mikroorganizmi</h3><p>
+          U tepihu se godinama skupljaju grinje i mikroorganizmi. Dubinsko usisavanje do 10 cm
+          uklanja ih iz vlakana, što je važno za alergičare i domove sa malom decom.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class='section' id='susenje'>
+    <div class='split'>
+      <div class='reveal'>
+        <h2>Sušenje i nega tepiha posle pranja</h2>
+        <p class='body'>
+          Posle dubinskog pranja ostaje oko 20% vlage. Ako je spoljna temperatura iznad 20 stepeni,
+          tepih se suši do nekoliko sati, a zimi do 24 h. Na brzinu sušenja utiču i uslovi u Vašem
+          domu ili prostoru.
+        </p>
+        <p class='body'>
+          Preporučujemo da prostoriju provetrite, a po mogućstvu uključite grejanje ili klimu kako
+          bi se tepih brže osušio. Tepih je najbolje ne opterećivati teškim nameštajem dok se
+          potpuno ne osuši.
+        </p>
+        <p class='body'>
+          Za redovno održavanje preporučujemo dubinsko pranje tepiha jednom do dva puta godišnje, a
+          češće u domovima sa decom i kućnim ljubimcima.
+        </p>
+      </div>
+      <div class='split__side reveal'>
+        <h3>Savet za duži vek tepiha</h3>
+        <ul class='chips' data-stagger>
+          <li class='pill pill--soft reveal'>Redovno usisavanje</li>
+          <li class='pill pill--soft reveal'>Pranje 1 do 2 puta godišnje</li>
+          <li class='pill pill--soft reveal'>Fleke tretirati odmah</li>
+          <li class='pill pill--soft reveal'>Provetravanje posle pranja</li>
+        </ul>
+        <h3>Zidovi i podovi ostaju netaknuti</h3>
+        <p class='body' style='margin-top:0'>
+          Pranje radimo pažljivo, pa se zidovi, parket i laminat ne oštećuju.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class='section section--tint' id='lokacije'>
+    <div class='section__head reveal'>
+      <h2>Tepih servis Novi Beograd, Zemun i Voždovac</h2>
+      <p>
+        Tražite li tepih servis u Beogradu, ne morate nigde da nosite tepih. Dolazimo na Vašu adresu
+        u svim beogradskim opštinama, a dolazak je besplatan ako pranje vredi više od 1000 din.
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Pranje tepiha Novi Beograd</h3><p>
+          Tepih servis Novi Beograd radi u stanovima, kućama i poslovnim prostorima. Mašine donosimo
+          na Vašu adresu i tepih peremo na licu mesta.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Tepih servis Zemun</h3><p>
+          Pranje tepiha Zemun obavljamo istom opremom i istim postupkom u tri faze kao u ostatku
+          Beograda: naprskavanje, četkanje i usisavanje.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Pranje tepiha Voždovac</h3><p>
+          Pranje tepiha Voždovac podrazumeva dolazak tehničara sa mašinama na Vašu adresu. Pozovite
+          i dogovorite termin koji Vam odgovara.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Tepih servisi Beograd i okolina</h3><p>
+          Pored Beograda, tepihe perimo u Pančevu, Novom Sadu, Zrenjaninu, Smederevu i Požarevcu.
+        </p>
+      </article>
+    </div>
+    <ul class='chips reveal' style='max-width:var(--max);margin:2rem auto 0'>
+      <li class='pill pill--line'>Novi Beograd</li>
+      <li class='pill pill--line'>Zemun</li>
+      <li class='pill pill--line'>Voždovac</li>
+      <li class='pill pill--line'>Pančevo</li>
+      <li class='pill pill--line'>Novi Sad</li>
+      <li class='pill pill--line'>Zrenjanin</li>
+      <li class='pill pill--line'>Smederevo</li>
+      <li class='pill pill--line'>Požarevac</li>
+    </ul>
+  </section>
+
+  <section class='section' id='iskustvo'>
+    <div class='split'>
+      <div class='reveal'>
+        <h2>Zašto klijenti biraju nas</h2>
+        <p class='body'>
+          Tokom 12 godina poslovanja naše usluge je koristilo preko 20.000 klijenata. Iskustvo nam
+          omogućava da unapred prepoznamo koji tepih traži pažljiviji tretman, a kome je potrebno
+          više prolaza mašine.
+        </p>
+        <p class='body'>
+          Koristimo najsavremenije profesionalne Karcher mašine i sredstva bez dugotrajnog mirisa.
+          Ako je tepih već oštećen ili dotrajao, tehničar će Vas upozoriti i ta mesta tretirati
+          blaže.
+        </p>
+        <p class='body'>
+          Prihvatamo sve eventualne reklamacije i ne obećavamo ono što ne možemo da ispunimo. Zato
+          Vas o mogućnostima uklanjanja težih fleka obaveštavamo pre početka rada.
+        </p>
+        <div class='actions'>
+          <a class='pill pill--solid pill--lg' href='tel:0652389201'>Pozovite 065 238 9201</a>
+        </div>
+      </div>
+      <div class='split__side reveal'>
+        <h3>Na čemu smo radili</h3>
+        <ul class='chips' data-stagger>
+          <li class='pill pill--line reveal'>Stanovi i kuće</li>
+          <li class='pill pill--line reveal'>Hoteli</li>
+          <li class='pill pill--line reveal'>Igraonice</li>
+          <li class='pill pill--line reveal'>Kancelarije</li>
+          <li class='pill pill--line reveal'>Brodovi</li>
+        </ul>
+        <h3>Naše ostale usluge</h3>
+        <ul class='links'>
+          <li>
+            <a href='/dubinsko-pranje-namestaja'>Dubinsko pranje nameštaja</a><span
+              >trosed 2000 din</span>
+          </li>
+          <li>
+            <a href='/'>Dubinsko pranje Beograd: sve usluge</a><span>tepih, nameštaj, auto</span>
+          </li>
+        </ul>
+        <p class='body' style='margin-top:0'>
+          Isti tim i ista oprema rade i dubinsko čišćenje nameštaja, dušeka i automobila.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Faq faq={faq} />
+  <Footer />
+</Layout>

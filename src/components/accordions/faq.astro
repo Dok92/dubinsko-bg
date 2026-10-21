@@ -1,0 +1,30 @@
+---
+const { faq } = Astro.props;
+---
+  
+  <section class='section' id='pitanja'>
+    <div class='section__head reveal'>
+      <h2>Česta pitanja</h2>
+    </div>
+    <div class='faq' data-stagger>
+      {faq.map(([q, a]) => (
+        <details class='qa reveal'>
+          <summary>{q}</summary>
+          <p>{a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <style>
+      /* FAQ */
+  .faq { display: grid; gap: 0.75rem; }
+  .qa { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); transition: border-color 0.25s, opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+  .qa[open] { border-color: #b8c9e3; }
+  .qa summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; cursor: pointer; font-weight: 600; list-style: none; }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after { content: '+'; flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--blue-soft); color: var(--blue-d); font-size: 1.2rem; transition: transform 0.35s var(--ease), background-color 0.25s; }
+  .qa[open] summary::after { transform: rotate(45deg); background: var(--blue); color: #fff; }
+  .qa p { padding: 0 1.5rem 1.4rem; color: var(--muted); max-width: 75ch; animation: rise 0.5s var(--ease) both; }
+  </style>
+

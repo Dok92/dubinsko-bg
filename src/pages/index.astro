@@ -1,0 +1,491 @@
+---
+import Layout from '../layouts/Layout.astro';
+import imgCarBefore from '../assets/before-1200-1600.jpg';
+import imgCarAfter from '../assets/after-1200-1600.jpg';
+import imgCar from '../assets/images/img-2.webp';
+import imgFurniture from '../assets/images/img-64.webp';
+import imgCarpet from '../assets/images/img-35.webp';
+import Faq from '../components/accordions/faq.astro';
+import Footer from '../components/main/Footer.astro';
+import References from '../components/main/References.astro';
+
+import Gallery from '../components/galleries/GalleryMasonry.astro';
+import img7 from '../assets/images/img-7.webp';
+import img13 from '../assets/images/img-13.webp';
+import img28 from '../assets/images/img-28.webp';
+import img32 from '../assets/images/img-32.webp';
+import img35 from '../assets/images/img-35.webp';
+import img37 from '../assets/images/img-37.webp';
+import img57 from '../assets/images/img-57.webp';
+import img63 from '../assets/images/img-63.webp';
+
+const galleryImages = [
+  { src: img63, alt: 'Dubinsko čišćenje auta' },
+  { src: img57, alt: 'Dubinsko pranje fotelja u kafiću' },
+  { src: img37, alt: 'Dubinsko pranje tepiha' },
+  { src: img32, alt: 'Dubinsko pranje autobusa' },
+  { src: img7, alt: 'Dubinsko pranje dvoseda' },
+  { src: img28, alt: 'Dubinsko pranje kamiona' },
+  { src: img35, alt: 'Dubinsko pranje tepiha u učionici' },
+  { src: img13, alt: 'Dubinsko pranje nameštaja' },
+];
+
+const services = [
+  {
+    title: 'Dubinsko pranje tepiha i itisona',
+    text: 'Dubinsko pranje svih vrsta tepiha i itisona kod Vas na adresi. Tepih servis koji dolazi do Vas.',
+    price: 'od 250 din/m²',
+    img: imgCarpet,
+    pos: '50% 60%',
+    href: '/dubinsko-pranje-tepiha',
+  },
+  {
+    title: 'Dubinsko pranje nameštaja',
+    text: 'Dubinsko čišćenje nameštaja na Vašoj adresi: trosedi, fotelje, stolice, kreveti i dušeci.',
+    price: 'trosed 2000 din',
+    img: imgFurniture,
+    pos: '50% 40%',
+    href: '/dubinsko-pranje-namestaja',
+  },
+  {
+    title: 'Dubinsko pranje automobila',
+    text: 'Dubinsko pranje auta, autobusa i kamiona. Sedišta i enterijer ponovo čisti i bez neprijatnih mirisa.',
+    price: 'automobil od 4000 din',
+    img: imgCar,
+    pos: '50% 25%',
+    href: null,
+  },
+];
+
+const prices = [
+  ['Tepih / staza / itison', '250 din./m²'],
+  ['Automobil', 'od 4000 din.'],
+  ['Trosed', '2000 din.'],
+  ['Bračni krevet', '2000 din.'],
+  ['Dvosed', '1400 din.'],
+  ['Fotelja', '1000 din.'],
+  ['Stolica', '300 din.'],
+  ['Ugaona garnitura', '700 din. po sednom mestu'],
+  ['Singl dušek (jednostrano / obostrano)', '1200 / 1600 din.'],
+  ['Bračni dušek (jednostrano / obostrano)', '1600 / 2000 din.'],
+];
+
+const steps = [
+  ['Naprskavanje', 'Rastvor vode i profesionalnog praška nanosimo na površinu.'],
+  ['Četkanje', 'Površinu pažljivo izčetkamo da se prljavština odvoji od vlakna.'],
+  ['Usisavanje', 'Dubinski usisavamo vodu i nečistoću, do 10 cm dubine.'],
+];
+
+const faq = [
+  [
+    'Koliko košta dubinsko pranje automobila?',
+    'Cena dubinskog pranja automobila počinje od 4000 din. i zavisi od veličine vozila i stepena zaprljanosti. Za veća pranja važe popusti od 10% i 15%. Cene za dubinsko pranje nameštaja pogledajte u cenovniku.',
+  ],
+  [
+    'Da li ste tepih servis i da li nosite tepihe kod sebe?',
+    'Dubinsko pranje tepiha radimo kod Vas na adresi, pa tepih ne morate nigde da nosite. Cena pranja tepiha, staze i itisona je 250 din./m².',
+  ],
+  [
+    'Koje mašine i sredstva koristite?',
+    'Koristimo najsavremenije profesionalne Karcher mašine i Karcher prašak bez dugotrajnog mirisa, potpuno neškodljiv po ljude i životinje. Ostala sredstva u pranju vozila su organska i neškodljiva.',
+  ],
+  [
+    'Do koje dubine usisavate nečistoću?',
+    'Do dubine od 10 cm. Kombinacijom mašina i hemije uklanjamo i neprijatne mirise, grinje i mikroorganizme iz mebla.',
+  ],
+  [
+    'Da li možete garantovati da će se sve fleke oprati?',
+    'Većinu fleka operemo bez problema, ali ne možemo garantovati uklanjanje apsolutno svih. Najkritičnije su fleke od urina, krvi i motornog ulja. Garantujemo da će se tehničari maksimalno potruditi.',
+  ],
+  [
+    'Da li pranje može da ošteti nameštaj?',
+    'Isti proces primenjujemo godinama. Ako je mebl već oštećen ili dotrajao, tehničar će Vas upozoriti i ta mesta tretirati blaže. Zidovi, parket i laminat se ne oštećuju.',
+  ],
+  [
+    'Koliko traje sušenje?',
+    'Posle pranja ostaje oko 20% vlage. Pri spoljnoj temperaturi preko 20 stepeni sušenje traje do nekoliko sati, zimi do 24 h. Utiču i uslovi u Vašem domu ili prostoru.',
+  ],
+  [
+    'Da li je dolazak besplatan i da li nosite nameštaj kod vas?',
+    'Dolazak ne naplaćujemo na teritoriji Beograda i okolnih bližih opština, uz uslov da pranje vredi više od 1000 din. Nameštaj ne nosimo, peremo ga isključivo kod Vas.',
+  ],
+];
+---
+
+<Layout
+  title='Dubinsko pranje Beograd | Pranje tepiha, nameštaja i auta'
+  ogTitle='Dubinsko pranje Beograd | Clean Solutions'
+  metaDescription='Dubinsko pranje u Beogradu: pranje tepiha, dubinsko čišćenje nameštaja i dubinsko pranje auta na Vašoj adresi. Preko 20.000 klijenata, Karcher oprema.'
+  canonical='https://dubinskopranjebeograd.com'
+>
+  <section class='hero'>
+    <div class='hero__copy'>
+      <span class='pill pill--soft' data-in style='--i:0'>Beograd, Pančevo, Novi Sad i okolina</span
+      >
+      <h1 data-in style='--i:1'>Dubinsko pranje Beograd koje <em>vidite</em> i osetite.</h1>
+      <p class='lead' data-in style='--i:2'>
+        Tokom 12 godina poslovanja naše usluge je koristilo preko 20.000 klijenata. Dolazimo na Vašu
+        adresu i radimo dubinsko pranje tepiha, dubinsko čišćenje nameštaja i dubinsko pranje auta
+        profesionalnom Karcher opremom.
+      </p>
+      <div class='actions' data-in style='--i:3'>
+        <a class='pill pill--solid pill--lg' href='tel:0652389201'>Zakaži pranje</a>
+        <a class='pill pill--line pill--lg' href='#cenovnik'>Pogledaj cene</a>
+      </div>
+      <ul class='facts' data-in style='--i:4'>
+        <li>Stimulativni popusti za veća pranja</li>
+        <li>Prihvatamo sve eventualne reklamacije</li>
+        <li>Dolazak besplatan u Beogradu i okolini</li>
+      </ul>
+    </div>
+
+    <figure class='ba' id='ba' style='--pos:50%;--i:2' data-in>
+      <div class='ba__frame'>
+        <img
+          class='ba__img'
+          src={imgCarBefore.src}
+          width='1600'
+          height='1200'
+          alt='Tepih pre dubinskog pranja'
+          fetchpriority='high'
+          decoding='async'
+        />
+        <img
+          class='ba__img ba__img--after'
+          src={imgCarAfter.src}
+          width='1200'
+          height='1600'
+          alt='Isti tepih posle dubinskog pranja'
+          fetchpriority='high'
+          decoding='async'
+        />
+        <span class='ba__line' aria-hidden='true'></span>
+        <span class='ba__knob' aria-hidden='true'></span>
+        <input
+          class='ba__range'
+          id='baRange'
+          type='range'
+          min='0'
+          max='100'
+          step='0.1'
+          value='50'
+          aria-label='Uporedi pre i posle'
+        />
+        <span class='pill pill--tag ba__tag ba__tag--l'>Pre</span>
+        <span class='pill pill--tag ba__tag ba__tag--r'>Posle</span>
+      </div>
+      <figcaption>Stvarni rezultat sa terena. Povucite da uporedite.</figcaption>
+    </figure>
+  </section>
+
+  <section class='stats' aria-label='Naše iskustvo u brojkama'>
+    <div class='stats__in' data-stagger>
+      <div class='stat reveal'>
+        <b data-count='20000' data-suffix='+'>20.000+</b><span>zadovoljnih klijenata</span>
+      </div>
+      <div class='stat reveal'><b data-count='12'>12</b><span>godina poslovanja</span></div>
+      <div class='stat reveal'><b data-count='6'>6</b><span>gradova u kojima radimo</span></div>
+      <div class='stat reveal'>
+        <b data-count='10' data-suffix=' cm'>10 cm</b><span>dubina usisavanja nečistoće</span>
+      </div>
+    </div>
+  </section>
+
+  <section class='section' id='usluge'>
+    <div class='section__head reveal'>
+      <h2>Dubinsko pranje: naše <em>usluge</em></h2>
+      <p>
+        Dubinsko pranje u Beogradu i okolini: ista metoda i ista oprema za tepihe, nameštaj i
+        automobile. Radimo na Vašoj adresi, bez nošenja nameštaja.
+      </p>
+    </div>
+    <div class='cards' data-stagger>
+      {
+        services.map((s) => {
+          const body = (
+            <>
+              <div class='card__media'>
+                <img
+                  src={s.img.src}
+                  width='1600'
+                  height='1200'
+                  alt={`${s.title} u Beogradu`}
+                  loading='lazy'
+                  decoding='async'
+                  style={`object-position:${s.pos}`}
+                />
+              </div>
+              <div class='card__body'>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+                <span class='pill pill--soft'>{s.price}</span>
+                {s.href && <span class='card__link'>Saznaj više</span>}
+              </div>
+            </>
+          );
+          return s.href ? (
+            <a class='card reveal' href={s.href}>
+              {body}
+            </a>
+          ) : (
+            <div class='card reveal'>{body}</div>
+          );
+        })
+      }
+    </div>
+    <p class='note reveal'>
+      Takođe nudimo mašinsko pranje tvrdih podova na Vašoj adresi i uslužno pranje veša u našoj
+      perionici (namenjeno pravnim licima).
+    </p>
+  </section>
+
+  <References />
+
+  <section class='section' id='cena'>
+    <div class='section__head reveal'>
+      <h2>Dubinsko pranje auta, tepiha, nameštaja <em>cena</em></h2>
+    </div>
+    <div class='pricing'>
+      <dl class='plist reveal'>
+        {
+          prices.map(([n, p]) => (
+            <div class='plist__row'>
+              <>
+                <dt>{n}</dt>
+                <dd>{p}</dd>
+              </>
+            </div>
+          ))
+        }
+      </dl>
+      <div class='discounts reveal'>
+        <div class='disc'><b>10%</b><span>popust za veća pranja</span></div>
+        <div class='disc'><b>15%</b><span>popust za najveća pranja</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class='section section--tint' id='tepisi'>
+    <div class='section__head reveal'>
+      <h2>Dubinsko pranje tepiha u Beogradu</h2>
+      <p>
+        Dubinsko pranje tepiha, staza i itisona radimo kod Vas na adresi, profesionalnom Karcher
+        opremom. Pranje tepiha Beograd ne zahteva odnošenje ni čekanje, a cena je 250 din./m².
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Pranje tepiha Beograd bez odnošenja</h3><p>
+          Kao tepih servis Beograd koji dolazi do Vas, donosimo mašine u Vaš dom ili poslovni
+          prostor. Tepih servis tako nije mesto na koje nosite tepih, već usluga koja stiže na Vaša
+          vrata, a pranje tepiha završavamo na licu mesta.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Šta dubinsko pranje tepiha uklanja</h3><p>
+          Za razliku od usisavanja, dubinsko pranje tepiha izvlači nečistoću do 10 cm dubine.
+          Uklanja prašinu, fleke, neprijatne mirise, grinje i mikroorganizme koji se godinama
+          skupljaju u vlaknima.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Tepisi, staze i itisoni</h3><p>
+          Dubinsko pranje tepiha obuhvata sve vrste tepiha i itisona: dnevne sobe, dečje sobe,
+          kancelarije, hotele i igraonice. Cena je ista za tepih, stazu i itison: <b>250 din./m²</b
+          >.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Koliko često prati tepih</h3><p>
+          Obično preporučujemo dubinsko pranje tepiha jednom do dva puta godišnje, a češće u
+          domovima sa decom i kućnim ljubimcima. Fleke je najbolje oprati što pre, dok se nisu
+          učvrstile.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class='section' id='namestaj'>
+    <div class='section__head reveal'>
+      <h2>Dubinsko čišćenje nameštaja</h2>
+      <p>
+        Dubinsko čišćenje nameštaja vraća svežinu trosedima, foteljama, stolicama, krevetima i
+        dušecima. Dubinsko pranje nameštaja radimo kod Vas, uz cenu koju znate unapred.
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Dubinsko pranje nameštaja cena</h3><p>
+          Dubinsko pranje nameštaja cena zavisi od komada: <b>trosed 2000 din.</b>, dvosed 1400
+          din., fotelja 1000 din., stolica 300 din., bračni krevet 2000 din. Ugaona garnitura se
+          računa 700 din. po sednom mestu.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Varijante čišćenja</h3><p>
+          Dušeke perimo jednostrano ili obostrano: singl 1200 / 1600 din., bračni 1600 / 2000 din.
+          Tako birate varijantu dubinskog čišćenja koja Vam odgovara i plaćate samo ono što zaista
+          perete.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Čišćenje nameštaja kod Vas</h3><p>
+          Nameštaj ne nosimo, pa zidovi, parket i laminat ostaju neoštećeni. Dubinsko čišćenje
+          uklanja fleke, neprijatne mirise, grinje i mikroorganizme, a nameštaj se suši od nekoliko
+          sati do 24 h.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class='section section--tint' id='auto-pranje'>
+    <div class='section__head reveal'>
+      <h2>Dubinsko pranje auta u Beogradu</h2>
+      <p>
+        Dubinsko pranje automobila u Beogradu radimo na lokaciji koju izaberete. Dubinsko pranje
+        auta obuhvata sedišta i druge tapacirane delove enterijera.
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Dubinsko pranje automobila cena</h3><p>
+          Dubinsko pranje automobila cena počinje od <b>4000 din.</b> i zavisi od veličine vozila i stepena
+          zaprljanosti. Za veća pranja važe popusti od 10% i 15%.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Dubinsko pranje auta Novi Beograd</h3><p>
+          Dubinsko pranje auta Novi Beograd obavljamo na adresi koju odaberete, uz uslov da su na
+          tom mestu obezbeđeni energetski uslovi za naše mašine. Isto važi i za ostale delove grada.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Vozila koja perimo</h3><p>
+          Pored putničkih vozila, dubinsko pranje auta radimo i na autobusima i kamionima. Isti
+          postupak primenjujemo na tapaciranim površinama: prskanje, četkanje i usisavanje.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class='section' id='postupak'>
+    <div class='section__head reveal'>
+      <h2>Kako perimo</h2>
+      <p>Postupak se ponavlja sve dok tehničar ne utvrdi da je površina čista.</p>
+    </div>
+    <ol class='steps' data-stagger>
+      {
+        steps.map(([t, p], i) => (
+          <li class='step reveal'>
+            <span class='step__n'>{i + 1}</span>
+            <h3>{t}</h3>
+            <p>{p}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <h3 class='subhead reveal'>Prednosti dubinskog čišćenja</h3>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Čisto do dubine</h3><p>
+          Usisivač i vlažna krpa čiste samo površinu. Dubinsko čišćenje izvlači prljavštinu do 10 cm
+          dubine, tamo gde se zadržava najviše nečistoće.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Bez neprijatnih mirisa</h3><p>
+          Karcher prašak koji koristimo nema dugotrajan miris, a neprijatne mirise uklanjamo zajedno
+          sa nečistoćom.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Bezbedno za porodicu</h3><p>
+          Sredstva su neškodljiva po ljude i životinje, pa se deca i kućni ljubimci vraćaju čistim
+          površinama čim se osuše.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Pouzdano i transparentno</h3><p>
+          Cenu znate unapred, za veća pranja imate popuste, a sve eventualne reklamacije prihvatamo.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class='section section--tint' id='lokacije'>
+    <div class='section__head reveal'>
+      <h2>Tepih servis Novi Beograd, Zemun i Voždovac</h2>
+      <p>
+        Pranje tepiha radimo na teritoriji Beograda. Bilo da tražite tepih servis Novi Beograd,
+        tepih servis Zemun ili pranje tepiha Voždovac, dolazimo na Vašu adresu. Kod nas ne morate da
+        tražite tepih servise Beograd i da tepih nosite u radnju: mi dolazimo kod Vas.
+      </p>
+    </div>
+    <div class='subs' data-stagger>
+      <article class='sub reveal'>
+        <h3>Pranje tepiha Novi Beograd</h3><p>
+          Pranje tepiha Novi Beograd radimo u stanovima, kućama i poslovnim prostorima. Za dubinsko
+          pranje auta Novi Beograd možete se informisati istim pozivom.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Tepih servis Zemun</h3><p>
+          Tepih servis Zemun za Vas znači dolazak mašina na adresu u Zemunu. Pranje tepiha Zemun
+          obavljamo istom opremom i istim postupkom u tri faze kao u ostatku Beograda.
+        </p>
+      </article>
+      <article class='sub reveal'>
+        <h3>Pranje tepiha Voždovac</h3><p>
+          Pranje tepiha Voždovac, kao i tepih servis Beograd u drugim opštinama, podrazumeva isti
+          postupak: naprskavanje, četkanje i dubinsko usisavanje. Pozovite i dogovorite termin.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class='section' id='iskustvo'>
+    <div class='split'>
+      <div class='reveal'>
+        <h2>Iskustvo koje se meri hiljadama pranja</h2>
+        <p class='body'>
+          Naši tehničari rade sa kućnim tapacirungom, ali i sa zahtevnim prostorima: hotelima,
+          igraonicama i autobusima. Koristimo samo profesionalnu Karcher opremu i sredstva bez
+          dugotrajnog mirisa, bezbedna po ljude i životinje.
+        </p>
+        <p class='body'>
+          Iskreni smo i oko ograničenja: većinu fleka skidamo bez problema, ali fleke od urina, krvi
+          i motornog ulja ponekad nije moguće ukloniti. U tom slučaju tehničar Vas obavesti pre i
+          tokom rada.
+        </p>
+      </div>
+      <div class='split__side reveal'>
+        <h3>Na čemu smo radili</h3>
+        <ul class='chips' data-stagger>
+          <li class='pill pill--line reveal'>Stanovi i kuće</li>
+          <li class='pill pill--line reveal'>Hoteli</li>
+          <li class='pill pill--line reveal'>Igraonice</li>
+          <li class='pill pill--line reveal'>Autobusi</li>
+          <li class='pill pill--line reveal'>Automobili</li>
+        </ul>
+        <h3>Radimo u gradovima</h3>
+        <ul class='chips' data-stagger>
+          <li class='pill pill--soft reveal'>Beograd</li>
+          <li class='pill pill--soft reveal'>Pančevo</li>
+          <li class='pill pill--soft reveal'>Novi Sad</li>
+          <li class='pill pill--soft reveal'>Zrenjanin</li>
+          <li class='pill pill--soft reveal'>Smederevo</li>
+          <li class='pill pill--soft reveal'>Požarevac</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <Gallery
+    title='Galerija: dubinsko pranje u praksi'
+    description='Fotografije sa stvarnih pranja tepiha, nameštaja i vozila u Beogradu i okolini.'
+    images={galleryImages}
+    moreHref='/galerija'
+    moreLabel='Pogledaj sve slike'
+  />
+  <Faq faq={faq} />
+  <Footer />
+</Layout>

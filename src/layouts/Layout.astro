@@ -1,0 +1,96 @@
+---
+import '@fontsource-variable/playfair-display/wght.css';
+import '@fontsource-variable/playfair-display/wght-italic.css';
+import '../styles/global.css';
+import Header from '../components/navbars/Header.astro';
+
+interface Props {
+  title: string;
+  metaDescription?: string;
+  ogTitle?: string;
+  canonical?: string;
+}
+
+const { title, metaDescription, ogTitle, canonical } = Astro.props;
+---
+
+<!doctype html>
+<html lang='sr'>
+  <head>
+    <title>{title}</title>
+
+    <!-- META -->
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='title' content={title} />
+    <meta name='description' content={metaDescription} />
+
+    <meta property='og:url' content={canonical} />
+
+    <!-- OG -->
+    <meta property='og:site_name' content='' />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:image' content='' />
+    <meta property='og:image' content='' />
+    <meta property='og:title' content={ogTitle} />
+    <meta property='og:description' content={metaDescription} />
+    <meta property='og:image:width' content='1200' />
+    <meta property='og:image:height' content='630' />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content='' />
+
+    <!-- FAVICON -->
+    <link rel='icon' type='image/png' href='/img/favicon/favicon-96x96.png' sizes='96x96' />
+    <link rel='icon' type='image/svg+xml' href='/img/favicon/favicon.svg' />
+    <link rel='shortcut icon' href='/img/favicon/favicon.ico' />
+    <link rel='apple-touch-icon' sizes='180x180' href='/img/favicon/apple-touch-icon.png' />
+    <meta name='apple-mobile-web-app-title' content='' />
+
+    <link rel='canonical' href={canonical} />
+
+  </head>
+  <body>
+    <main>
+      <Header />
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+    @font-face {
+    font-family: 'Inter';
+    font-weight: 100 900;
+    font-style: oblique 0deg 10deg;
+    src:
+      url('/fonts/Inter/InterVariable.woff2') format('woff2 supports variations'),
+      url('/fonts/Inter/InterVariable.woff2') format('woff2-variations'),
+      url('/fonts/Inter/InterVariable.woff2') format('woff2');
+  }
+
+  :root {
+    --bg: #f3ede2;
+    --bg-2: #ebe3d4;
+    --card: #fbf8f2;
+    --ink: #2a2620;
+    --muted: #6c6355;
+    --line: #ddd4c3;
+    --blue: #4a77b4;
+    --blue-d: #36598f;
+    --blue-soft: #e1eaf6;
+    --r: 1.25rem;
+    --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --serif: 'Playfair Display Variable', Georgia, serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --pad: clamp(1rem, 5vw, 4rem);
+    --max: 72rem;
+    font-feature-settings:
+      'liga' 1,
+      'calt' 1; /* fix for Chrome */
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  import '../scripts/page-effects';
+</script>

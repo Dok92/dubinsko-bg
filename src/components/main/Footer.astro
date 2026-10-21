@@ -1,0 +1,77 @@
+---
+const phones = [
+  ['Beograd, Pančevo', '065 23 89 201'],
+  ['Novi Sad, Zrenjanin', '065 23 89 202'],
+  ['Smederevo, Požarevac', '065 23 89 204'],
+];
+const year = new Date().getFullYear();
+const tel = (p: string) => 'tel:+381' + p.replace(/\s/g, '').slice(1);
+---
+  <section class='section section--tint' id='kontakt'>
+    <div class='section__head reveal'>
+      <h2>Kontakt</h2>
+      <p>Pozovite broj za Vaš grad. Radimo ponedeljak do subote, 8:00 do 21:00.</p>
+    </div>
+    <div class='contact' data-stagger>
+      {phones.map(([city, num]) => (
+        <a class='ccard reveal' href={tel(num)}>
+          <span>{city}</span>
+          <b>{num}</b>
+        </a>
+      ))}
+    </div>
+    <p class='note reveal'>
+      <a href='mailto:dubinskobgd@gmail.com'>dubinskobgd@gmail.com</a> · <a href='mailto:dubinskons@gmail.com'>dubinskons@gmail.com</a><br />
+      Clean Solutions · PIB 107448019 · Banca Intesa 160-367438-70
+    </p>
+
+    <div class='bottom reveal'>
+      <span>© {year} Clean Solutions</span>
+      <a class='credit' href='https://webdok.rs' target='_blank' rel='noopener' aria-label='Izrada sajta: WebDok (otvara se u novom prozoru)'>
+        <span class='credit__label'>Izrada sajta:</span>
+        <span class='credit__pill'>WebDok<i aria-hidden='true'>↗</i></span>
+      </a>
+    </div>
+  </section>
+
+<style>
+  .bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    max-width: var(--max);
+    margin: clamp(2rem, 4vw, 3rem) auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .credit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--muted);
+  }
+  .credit__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: var(--blue-soft);
+    color: var(--blue-d);
+    font-weight: 600;
+    transition: background-color 0.25s, color 0.25s, transform 0.3s var(--ease);
+  }
+  .credit__pill i {
+    font-style: normal;
+    display: inline-block;
+    transition: transform 0.3s var(--ease);
+  }
+  .credit:hover .credit__pill { background: var(--blue); color: #fff; transform: translateY(-2px); }
+  .credit:hover .credit__pill i { transform: translate(2px, -2px); }
+  .credit:focus-visible { border-radius: 999px; }
+</style>
