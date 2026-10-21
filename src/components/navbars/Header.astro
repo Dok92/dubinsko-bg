@@ -56,7 +56,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     top: 0;
     z-index: 50;
     padding-inline: max(var(--pad, 1rem), calc((100% - var(--max, 72rem)) / 2 + var(--pad, 1rem)));
-    background: rgba(243, 237, 226, 0.96);
+    background: var(--bg);
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s, box-shadow 0.3s;
     animation: down 0.7s var(--ease, ease) both;

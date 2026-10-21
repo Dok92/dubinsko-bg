@@ -1,3 +1,4 @@
+/* Shared styles for all pages. Design tokens (:root vars) live in Layout.astro. */
 *,
 *::before,
 *::after {
@@ -14,7 +15,6 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
-  scroll-behavior: smooth;
 }
 img {
   display: block;
@@ -66,25 +66,28 @@ a {
     box-shadow 0.25s,
     transform 0.3s var(--ease);
 }
+
 .pill--lg {
   padding: 0.85rem 1.6rem;
   font-size: 1rem;
 }
 .pill--solid {
-  background: var(--blue);
+  background: var(--primary);
   color: #fff;
+  box-shadow: 0 0.6rem 1.25rem -0.6rem rgba(24, 77, 145, 0.7);
 }
 .pill--solid:hover {
-  background: var(--blue-d);
+  background: var(--ink);
   transform: translateY(-2px);
 }
 .pill--line {
-  box-shadow: inset 0 0 0 1.5px var(--line);
-  background: var(--card);
+  box-shadow: inset 0 0 0 1.5px #c3d9ec;
+  background: var(--background);
+  color: var(--primary);
 }
 a.pill--line:hover {
-  box-shadow: inset 0 0 0 1.5px var(--blue);
-  color: var(--blue-d);
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+  background: var(--pale);
   transform: translateY(-2px);
 }
 .pill--soft {
@@ -92,7 +95,7 @@ a.pill--line:hover {
   color: var(--blue-d);
 }
 .pill--tag {
-  background: rgba(42, 38, 32, 0.72);
+  background: rgba(21, 55, 93, 0.78);
   color: #fff;
   font-size: 0.85rem;
   padding: 0.25rem 0.8rem;
@@ -127,7 +130,12 @@ a.pill--line:hover {
 }
 em {
   font-style: italic;
-  color: var(--blue);
+  padding-right: 0.06em;
+  color: var(--accent);
+  background: linear-gradient(90deg, var(--teal), var(--accent) 60%, #5bb4f5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .lead {
   margin-top: 1.25rem;
@@ -173,9 +181,9 @@ em {
   aspect-ratio: 8 / 6;
   border-radius: var(--r);
   overflow: hidden;
-  background: var(--bg-2);
+  background: var(--pale);
   border: 1px solid var(--line);
-  box-shadow: 0 1.5rem 3rem -1.75rem rgba(42, 38, 32, 0.45);
+  box-shadow: 0 1.5rem 3rem -1.75rem rgba(23, 62, 104, 0.4);
   touch-action: pan-y;
 }
 .ba__img {
@@ -259,16 +267,17 @@ em {
 
 /* Stats */
 .stats {
-  padding: 0 var(--pad);
+  padding: clamp(1.75rem, 4vw, 3rem) var(--pad) 0;
 }
 .stats__in {
   max-width: var(--max);
   margin-inline: auto;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  background: var(--card);
-  border: 1px solid var(--line);
+  background: linear-gradient(140deg, #f5faff, #eaf4fc);
+  border: 1px solid var(--card-line);
   border-radius: var(--r);
+  box-shadow: var(--shadow);
 }
 .stat {
   display: grid;
@@ -277,14 +286,14 @@ em {
   text-align: center;
 }
 .stat + .stat {
-  border-left: 1px solid var(--line);
+  border-left: 1px solid var(--card-line);
 }
 .stat b {
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(1.9rem, 4vw, 2.9rem);
   line-height: 1.1;
-  color: var(--blue-d);
+  color: var(--primary);
   font-variant-numeric: tabular-nums;
 }
 .stat span {
@@ -297,7 +306,13 @@ em {
   padding: clamp(3rem, 7vw, 6rem) var(--pad);
 }
 .section--tint {
-  background: var(--bg-2);
+  background: linear-gradient(140deg, #f5faff, #eaf4fc);
+  border-block: 1px solid #dce8f3;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.section--tint .sub {
+  background: white !important;
 }
 .section__head,
 .cards,
@@ -343,7 +358,7 @@ em {
   flex-direction: column;
   overflow: hidden;
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-radius: var(--r);
   text-decoration: none;
 }
@@ -356,13 +371,13 @@ a.card {
 }
 a.card:hover {
   transform: translateY(-4px);
-  border-color: #c9bfa9;
-  box-shadow: 0 1.25rem 2.25rem -1.5rem rgba(42, 38, 32, 0.4);
+  border-color: #9cc6ea;
+  box-shadow: 0 1.25rem 2.25rem -1.5rem rgba(23, 62, 104, 0.45);
 }
 .card__media {
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: var(--bg-2);
+  background: var(--pale);
 }
 .card__media img {
   width: 100%;
@@ -410,9 +425,9 @@ a.card:hover .card__link::after {
   gap: 1.25rem;
 }
 .step {
-  padding: 1.75rem;
+  padding: 1.5rem;
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-radius: var(--r);
 }
 .step__n {
@@ -454,8 +469,9 @@ a.card:hover .card__link::after {
   display: grid;
   gap: 0.9rem;
   padding: 1.75rem;
+  box-shadow: var(--shadow);
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-radius: var(--r);
 }
 .split__side h3 {
@@ -479,7 +495,7 @@ a.card:hover .card__link::after {
 }
 .plist {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-radius: var(--r);
   padding: 0.5rem 1.5rem;
 }
@@ -507,8 +523,8 @@ a.card:hover .card__link::after {
   align-items: center;
   gap: 1rem;
   padding: 1.25rem 1.5rem;
-  background: var(--blue-soft);
-  border: 1px solid #cbd9ee;
+  background: linear-gradient(140deg, #e6f2fd, #d3e7f9);
+  border: 1px solid #b9d7f2;
   border-radius: var(--r);
 }
 .disc b {
@@ -529,8 +545,8 @@ a.card:hover .card__link::after {
   display: grid;
   gap: 0.3rem;
   padding: 1.5rem;
-  background: var(--card);
-  border: 1px solid var(--line);
+  background: white;
+  border: 1px solid var(--card-line);
   border-radius: var(--r);
   text-decoration: none;
   transition:
@@ -542,7 +558,7 @@ a.card:hover .card__link::after {
 .ccard:hover {
   transform: translateY(-4px);
   border-color: var(--blue);
-  box-shadow: 0 1.25rem 2.25rem -1.5rem rgba(54, 89, 143, 0.5);
+  box-shadow: 0 1.25rem 2.25rem -1.5rem rgba(24, 77, 145, 0.45);
 }
 .ccard span {
   color: var(--muted);
@@ -563,9 +579,9 @@ a.card:hover .card__link::after {
   gap: 1.25rem;
 }
 .sub {
-  padding: 1.75rem;
+  padding: 1.5rem;
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-radius: var(--r);
 }
 .sub h3 {
@@ -629,6 +645,7 @@ a.card:hover .card__link::after {
   font-weight: 600;
 }
 
+/* Scroll reveal: hidden only when JS is available */
 @media (scripting: enabled) {
   .reveal {
     opacity: 0;
@@ -652,6 +669,38 @@ a.card:hover .card__link::after {
   .split,
   .pricing {
     grid-template-columns: 1fr;
+  }
+  /* Hero on mobile: crumbs, h1, before/after, buttons, then lead and facts */
+  .hero {
+    gap: 0;
+  }
+  .hero__copy {
+    display: contents;
+  }
+  .hero .crumbs {
+    order: 0;
+  }
+  .hero h1 {
+    order: 1;
+  }
+  .hero .ba {
+    order: 2;
+    margin-top: 1.5rem;
+  }
+  .hero .ba figcaption {
+    display: none;
+  }
+  .hero .actions {
+    order: 3;
+    margin-top: 1.5rem;
+  }
+  .hero .lead {
+    order: 4;
+    margin-top: 1.5rem;
+  }
+  .hero .facts {
+    order: 5;
+    margin-top: 1.5rem;
   }
   .cards,
   .steps,
@@ -691,5 +740,85 @@ a.card:hover .card__link::after {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* Hero band: full-width gradient with a drifting sparkle */
+.hero-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(at 90% 20%, #d8ecfb 0, #0000 55%), linear-gradient(120deg, #f8fbff, #eef6fd);
+  border-bottom: 1px solid #dce8f3;
+}
+.hero-band::after {
+  content: '\2727';
+  position: absolute;
+  top: 9%;
+  right: 4%;
+  z-index: -1;
+  font-size: 48px;
+  color: #fff;
+  filter: drop-shadow(0 0 12px #62baff);
+  pointer-events: none;
+  animation: clean-spark 7s ease-in-out infinite;
+}
+@keyframes clean-spark {
+  0%,
+  100% {
+    transform: scale(0.855) rotate(-7.6deg);
+    opacity: 0.46;
+  }
+  50% {
+    transform: scale(1.12) rotate(8deg);
+    opacity: 1;
+  }
+}
+
+/* Cleaning sweep: a band of light passes over a whole grid when it first scrolls into view.
+   The class is added by page-effects.ts to .subs, .steps, .cards and .stats__in. */
+.clean-sweep {
+  position: relative;
+  overflow-x: clip;
+} /* clip the sweep sideways so it never widens the page (mobile browsers zoom out to fit overflow) */
+.clean-sweep::after {
+  content: '';
+  position: absolute;
+  inset: -25% auto -25% -80%;
+  z-index: 2;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(100deg, #0000, #ffffffb3, #0000);
+  transform: skew(-18deg);
+  opacity: 0;
+}
+.clean-sweep.is-cleaned::after {
+  animation: cleaning-pass 1.3s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+@keyframes cleaning-pass {
+  0% {
+    transform: translateX(0) skew(-18deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(430%) skew(-18deg);
+    opacity: 0;
+  }
+}
+
+/* ---- Navbar: move these into the navbar component's own <style> ---- */
+@keyframes down {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+@media (max-width: 40rem) {
+  .nav__links a:not(.pill) {
+    display: none;
   }
 }

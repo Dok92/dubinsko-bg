@@ -67,27 +67,37 @@ const { title, metaDescription, ogTitle, canonical } = Astro.props;
       url('/fonts/Inter/InterVariable.woff2') format('woff2');
   }
 
-  :root {
-    --bg: #f3ede2;
-    --bg-2: #ebe3d4;
-    --card: #fbf8f2;
-    --ink: #2a2620;
-    --muted: #6c6355;
-    --line: #ddd4c3;
-    --blue: #4a77b4;
-    --blue-d: #36598f;
-    --blue-soft: #e1eaf6;
-    --r: 1.25rem;
-    --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --serif: 'Playfair Display Variable', Georgia, serif;
-    --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    --pad: clamp(1rem, 5vw, 4rem);
-    --max: 72rem;
-    font-feature-settings:
-      'liga' 1,
-      'calt' 1; /* fix for Chrome */
-    scroll-behavior: smooth;
-  }
+:root {
+  --primary: #184d91;
+  --ink: #15375d;
+  --foreground: #183552;
+  --teal: #287daf;
+  --muted: #55687b;
+  --line: #dbe5ef;
+  --pale: #f1f7fc;
+  --background: #fff;
+
+
+  --accent: #2a86e0;        
+  --card: #f5faff;
+  --card-line: #d7e6f1;
+  --shadow: 0 12px 30px #173e6810;
+
+  --bg: var(--background);
+  --bg-2: #eaf4fc;
+  --blue: var(--accent);
+  --blue-d: var(--primary);
+  --blue-soft: white;
+
+  --r: 1rem;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --serif: 'Playfair Display Variable', Georgia, serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --pad: clamp(1rem, 5vw, 4rem);
+  --max: 72rem;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  scroll-behavior: smooth;
+}
 </style>
 
 <script>

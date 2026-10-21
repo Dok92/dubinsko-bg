@@ -1,33 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import imgCarBefore from '../assets/before-1200-1600.jpg';
-import imgCarAfter from '../assets/after-1200-1600.jpg';
-import imgCar from '../assets/images/img-2.webp';
-import imgFurniture from '../assets/images/img-64.webp';
-import imgCarpet from '../assets/images/img-35.webp';
+import imgCarBefore from '../assets/images/vehicles/img-3-before.webp';
+import imgCarAfter from '../assets/images/vehicles/img-3-after.webp';
+import imgCar from '../assets/images/vehicles/img-2.webp';
+import imgFurniture from '../assets/images/furniture/img-4.webp';
+import imgCarpet from '../assets/images/floor/img-3.webp';
 import Faq from '../components/accordions/faq.astro';
 import Footer from '../components/main/Footer.astro';
 import References from '../components/main/References.astro';
 
 import Gallery from '../components/galleries/GalleryMasonry.astro';
-import img7 from '../assets/images/img-7.webp';
-import img13 from '../assets/images/img-13.webp';
-import img28 from '../assets/images/img-28.webp';
-import img32 from '../assets/images/img-32.webp';
-import img35 from '../assets/images/img-35.webp';
-import img37 from '../assets/images/img-37.webp';
-import img57 from '../assets/images/img-57.webp';
-import img63 from '../assets/images/img-63.webp';
+
+const all = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*.webp', { eager: true });
+const pick = (path: string, alt: string) => ({ src: all[`/src/assets/images/${path}`].default, alt });
 
 const galleryImages = [
-  { src: img63, alt: 'Dubinsko čišćenje auta' },
-  { src: img57, alt: 'Dubinsko pranje fotelja u kafiću' },
-  { src: img37, alt: 'Dubinsko pranje tepiha' },
-  { src: img32, alt: 'Dubinsko pranje autobusa' },
-  { src: img7, alt: 'Dubinsko pranje dvoseda' },
-  { src: img28, alt: 'Dubinsko pranje kamiona' },
-  { src: img35, alt: 'Dubinsko pranje tepiha u učionici' },
-  { src: img13, alt: 'Dubinsko pranje nameštaja' },
+  pick('vehicles/img-11.webp', 'Dubinsko čišćenje auta'),
+  pick('furniture/img-11.webp', 'Dubinsko pranje fotelja u kafiću'),
+  pick('floor/img-1.webp', 'Dubinsko pranje tepiha'),
+  pick('vehicles/img-12.webp', 'Dubinsko pranje autobusa'),
+  pick('furniture/img-12.webp', 'Dubinsko pranje nameštaja'),
+  pick('furniture/img-13.webp', 'Dubinsko pranje dvoseda'),
+  pick('vehicles/img-15.webp', 'Dubinsko pranje kamiona'),
+  pick('floor/img-2.webp', 'Dubinsko pranje tepiha u učionici'),
 ];
 
 const services = [
@@ -115,16 +110,16 @@ const faq = [
 <Layout
   title='Dubinsko pranje Beograd | Pranje tepiha, nameštaja i auta'
   ogTitle='Dubinsko pranje Beograd | Clean Solutions'
-  metaDescription='Dubinsko pranje u Beogradu: pranje tepiha, dubinsko čišćenje nameštaja i dubinsko pranje auta na Vašoj adresi. Preko 20.000 klijenata, Karcher oprema.'
+  metaDescription='Dubinsko pranje u Beogradu: pranje tepiha, dubinsko čišćenje nameštaja i dubinsko pranje auta na Vašoj adresi. Preko 30.000 klijenata, Karcher oprema.'
   canonical='https://dubinskopranjebeograd.com'
 >
   <section class='hero'>
     <div class='hero__copy'>
-      <span class='pill pill--soft' data-in style='--i:0'>Beograd, Pančevo, Novi Sad i okolina</span
-      >
+      <!-- <span class='pill pill--soft index' data-in style='--i:0'>Beograd, Pančevo, Novi Sad i okolina</span
+      > -->
       <h1 data-in style='--i:1'><em>Dubinsko</em> pranje Beograd koje vidite i osetite.</h1>
       <p class='lead' data-in style='--i:2'>
-        Tokom 12 godina poslovanja naše usluge je koristilo preko 20.000 klijenata. Dolazimo na Vašu
+        Tokom 15 godina poslovanja naše usluge je koristilo preko 30.000 klijenata. Dolazimo na Vašu
         adresu i radimo dubinsko pranje tepiha, dubinsko čišćenje nameštaja i dubinsko pranje auta
         profesionalnom Karcher opremom.
       </p>
@@ -181,9 +176,9 @@ const faq = [
   <section class='stats' aria-label='Naše iskustvo u brojkama'>
     <div class='stats__in' data-stagger>
       <div class='stat reveal'>
-        <b data-count='20000' data-suffix='+'>20.000+</b><span>zadovoljnih klijenata</span>
+        <b data-count='30000' data-suffix='+'>30.000+</b><span>zadovoljnih klijenata</span>
       </div>
-      <div class='stat reveal'><b data-count='12'>12</b><span>godina poslovanja</span></div>
+      <div class='stat reveal'><b data-count='15'>15</b><span>godina poslovanja</span></div>
       <div class='stat reveal'><b data-count='6'>6</b><span>gradova u kojima radimo</span></div>
       <div class='stat reveal'>
         <b data-count='10' data-suffix=' cm'>10 cm</b><span>dubina usisavanja nečistoće</span>

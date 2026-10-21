@@ -1,14 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import GalleryMasonry from '../components/galleries/GalleryMasonry.astro';
-
-const mods = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/img-*.webp', { eager: true });
-const images = Object.entries(mods)
-  .map(([p, m]) => ({ n: Number(p.match(/img-(\d+)\.webp$/)?.[1]), src: m.default }))
-  .sort((a, b) => a.n - b.n)
-  .map(({ n, src }) => ({ src, alt: `Dubinsko pranje Beograd, primer ${n}` }));
+import GalleryExplorer from '../components/galleries/GalleryExplorer.astro';
 ---
 
-<Layout title='Galerija | Dubinsko pranje Beograd' ogTitle='Galerija | Dubinsko pranje Beograd' metaDescription='Fotografije dubinskog pranja tepiha, nameštaja i automobila u Beogradu.' canonical=''>
-  <GalleryMasonry as='h1' title='Galerija radova' description='Sve fotografije sa naših pranja tokom godina.' images={images} />
+<Layout title='Galerija | Dubinsko pranje Beograd' ogTitle='Galerija | Dubinsko pranje Beograd' metaDescription='Fotografije dubinskog pranja tepiha, nameštaja i vozila u Beogradu. Pogledajte stvarne rezultate pre i posle pranja.' canonical=''>
+  <GalleryExplorer
+    as='h1'
+    title='Galerija radova'
+    description='Fotografije sa stvarnih pranja tepiha, nameštaja i vozila. Izaberite kategoriju ili pogledajte sve.'
+  />
 </Layout>

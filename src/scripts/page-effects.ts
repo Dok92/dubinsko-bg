@@ -1,5 +1,7 @@
+// Shared page behaviour: before/after slider, stagger delays, counters, scroll reveal.
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// ---- Before/After: native range input, one rAF-batched CSS variable write ----
 const ba = document.getElementById('ba');
 const range = document.getElementById('baRange') as HTMLInputElement | null;
 if (ba && range) {
@@ -36,6 +38,7 @@ if (ba && range) {
   }
 }
 
+// ---- Stagger: read all groups first, then write (no layout thrash) ----
 document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((group) => {
   Array.from(group.children).forEach((child, i) => {
     (child as HTMLElement).style.setProperty('--d', `${i * 90}ms`);
@@ -58,6 +61,7 @@ const countUp = (el: HTMLElement) => {
   requestAnimationFrame(step);
 };
 
+// ---- One observer for every reveal, unobserve after first hit ----
 const io = new IntersectionObserver(
   (entries) => {
     for (const e of entries) {
@@ -71,3 +75,22 @@ const io = new IntersectionObserver(
   { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
 );
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+// ---- Cleaning sweep: one light pass over each grid the first time it comes into view ----
+const sweeps = document.querySelectorAll<HTMLElement>(
+  '.subs, .steps, .cards, .stats__in, [data-sweep]',
+);
+sweeps.forEach((el) => el.classList.add('clean-sweep'));
+if (!reduce && sweeps.length) {
+  const so = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        (e.target as HTMLElement).classList.add('is-cleaned');
+        so.unobserve(e.target);
+      }
+    },
+    { rootMargin: '0px 0px -10% 0px', threshold: 0.15 },
+  );
+  sweeps.forEach((el) => so.observe(el));
+}

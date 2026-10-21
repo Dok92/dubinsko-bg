@@ -1,0 +1,280 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  description: string;
+  as?: 'h1' | 'h2';
+}
+const { title, description, as: Tag = 'h1' } = Astro.props;
+
+// ---- Učitavanje: /src/assets/images/{floor,furniture,vehicles}/img-N[-before|-after].webp + slike u korenu ----
+type Cat = 'floor' | 'furniture' | 'vehicles' | 'misc';
+type Item = { type: 'img' | 'ba'; cat: Cat; n: number; src?: ImageMetadata; before?: ImageMetadata; after?: ImageMetadata };
+
+const mods = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*.webp', { eager: true });
+const rx = /images\/(?:(floor|furniture|vehicles)\/)?img-(\d+)(?:-(before|after))?\.webp$/;
+
+const singles: Item[] = [];
+const groups = new Map<string, Item>();
+for (const [path, mod] of Object.entries(mods)) {
+  const m = path.match(rx);
+  if (!m) continue;
+  const cat = (m[1] ?? 'misc') as Cat;
+  const n = Number(m[2]);
+  const kind = m[3] as 'before' | 'after' | undefined;
+  if (!kind) { singles.push({ type: 'img', cat, n, src: mod.default }); continue; }
+  const key = `${cat}-${n}`;
+  const g = groups.get(key) ?? { type: 'ba' as const, cat, n };
+  g[kind] = mod.default;
+  groups.set(key, g);
+}
+
+const pairs: Item[] = [];
+for (const g of groups.values()) {
+  if (g.before && g.after) pairs.push(g);
+  else singles.push({ type: 'img', cat: g.cat, n: g.n, src: g.before ?? g.after }); // nepotpun par = obična slika
+}
+
+const order: Cat[] = ['floor', 'furniture', 'vehicles', 'misc'];
+const cmp = (a: Item, b: Item) => a.n - b.n || order.indexOf(a.cat) - order.indexOf(b.cat);
+// Before/after prvi, obične slike na kraju
+const items = [...pairs.sort(cmp), ...singles.sort(cmp)];
+
+const label: Record<Cat, string> = {
+  floor: 'Dubinsko pranje tepiha',
+  furniture: 'Dubinsko pranje nameštaja',
+  vehicles: 'Dubinsko pranje auta i vozila',
+  misc: 'Dubinsko pranje Beograd',
+};
+const count = (c: Cat) => items.filter((i) => i.cat === c).length;
+const filters = [
+  ['all', 'Sve', items.length],
+  ['floor', 'Tepisi', count('floor')],
+  ['furniture', 'Nameštaj', count('furniture')],
+  ['vehicles', 'Vozila', count('vehicles')],
+] as const;
+
+const sizes = '(max-width: 40rem) 92vw, (max-width: 72rem) 33vw, 17rem';
+---
+
+<section class='gx' data-explorer>
+  <div class='gx-head'>
+    <Tag class='gx-title'>{title}</Tag>
+    <p class='gx-desc'>{description}</p>
+  </div>
+
+  <div class='gx-filters' role='group' aria-label='Filter galerije'>
+    {filters.map(([key, name, n]) => (
+      <button type='button' class='gx-pill' data-filter={key} aria-pressed={key === 'all' ? 'true' : 'false'}>
+        {name} <span>{n}</span>
+      </button>
+    ))}
+    <span class='gx-live' aria-live='polite'></span>
+  </div>
+
+  <div class='gx-grid'>
+    {items.map((it, i) => {
+      const ref = (it.type === 'ba' ? it.before : it.src)!;
+      const ar = ref.width / ref.height;
+      return (
+        <div class={`gx-item${it.type === 'ba' ? ' is-ba' : ''}`} data-cat={it.cat} data-ar={ar.toFixed(4)} style={`--ar:${ar};--i:${i % 8}`}>
+          {it.type === 'ba' ? (
+            <>
+              <Image src={it.before!} alt={`${label[it.cat]}, pre pranja, primer ${it.n}`} widths={[400, 800]} sizes={sizes} loading='lazy' decoding='async' />
+              <Image class='after' src={it.after!} alt={`${label[it.cat]}, posle pranja, primer ${it.n}`} widths={[400, 800]} sizes={sizes} loading='lazy' decoding='async' />
+              <span class='ba-line' aria-hidden='true' />
+              <span class='ba-knob' aria-hidden='true' />
+              <input class='ba-range' type='range' min='0' max='100' step='0.1' value='50' aria-label={`Uporedi pre i posle, primer ${it.n}`} />
+              <span class='gx-tag gx-tag--l'>Pre</span>
+              <span class='gx-tag gx-tag--r'>Posle</span>
+            </>
+          ) : (
+            <Image src={it.src!} alt={`${label[it.cat]}, primer ${it.n}`} widths={[400, 800]} sizes={sizes} loading='lazy' decoding='async' />
+          )}
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .gx {
+    max-width: calc(var(--max, 72rem) + 2 * var(--pad, 1rem));
+    margin-inline: auto;
+    padding: clamp(3rem, 7vw, 6rem) var(--pad, 1rem);
+  }
+  .gx-head { display: grid; gap: 0.7rem; margin-bottom: clamp(1.25rem, 3vw, 2rem); }
+  .gx-title {
+    margin: 0;
+    max-width: 20ch;
+    font-family: var(--serif, Georgia, serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink, #2a2620);
+    text-wrap: balance;
+  }
+  .gx-desc { margin: 0; max-width: 56ch; color: var(--muted, #6c6355); font-size: 1.1rem; }
+
+  /* Filter */
+  .gx-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: clamp(1.25rem, 3vw, 2rem); }
+  .gx-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--line, #ddd4c3);
+    border-radius: 999px;
+    background: var(--card, #fbf8f2);
+    color: var(--ink, #2a2620);
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s, border-color 0.25s, transform 0.3s var(--ease, ease);
+  }
+  .gx-pill span { padding: 0.05rem 0.5rem; border-radius: 999px; background: var(--bg-2, #ebe3d4); font-size: 0.8rem; font-weight: 600; transition: background-color 0.25s, color 0.25s; }
+  .gx-pill:hover { border-color: var(--blue, #4a77b4); transform: translateY(-2px); }
+  .gx-pill[aria-pressed='true'] { background: var(--blue, #4a77b4); border-color: var(--blue, #4a77b4); color: #fff; }
+  .gx-pill[aria-pressed='true'] span { background: rgba(255, 255, 255, 0.22); color: #fff; }
+  .gx-pill:focus-visible { outline: 3px solid var(--blue, #4a77b4); outline-offset: 3px; }
+  .gx-live { margin-left: 0.4rem; color: var(--muted, #6c6355); font-size: 0.9rem; }
+
+  /* Mreža: bez JS-a običan grid, sa JS-om masonry preko redova od 4px */
+  .gx-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.85rem; align-items: start; }
+  .gx-grid.is-masonry { grid-auto-rows: 4px; row-gap: 0; column-gap: 0.85rem; }
+  .is-masonry .gx-item { margin-bottom: 0.85rem; }
+  @media (min-width: 40rem) {
+    .gx-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+    .gx-grid.is-masonry { column-gap: 1rem; }
+    .is-masonry .gx-item { margin-bottom: 1rem; }
+  }
+
+  .gx-item {
+    position: relative;
+    align-self: start;
+    width: 100%;
+    aspect-ratio: var(--ar);
+    overflow: hidden;
+    border-radius: var(--r, 1.25rem);
+    border: 1px solid var(--line, #ddd4c3);
+    background: var(--bg-2, #ebe3d4);
+  }
+  .gx-item[hidden] { display: none; }
+  .gx-item img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+  .gx-item:not(.is-ba) img { transition: transform 0.8s var(--ease, ease); }
+  .gx-item:not(.is-ba):hover img { transform: scale(1.05); }
+
+  /* Before / After */
+  .is-ba { --pos: 50%; touch-action: pan-y; }
+  .is-ba img.after { clip-path: inset(0 0 0 var(--pos)); will-change: clip-path; }
+  .ba-line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.25); pointer-events: none; }
+  .ba-knob { position: absolute; top: 50%; left: var(--pos); width: 2.5rem; height: 2.5rem; margin: -1.25rem 0 0 -1.25rem; border-radius: 50%; background: #fff; box-shadow: 0 0.3rem 0.9rem rgba(0, 0, 0, 0.3); pointer-events: none; }
+  .ba-knob::before, .ba-knob::after { content: ''; position: absolute; top: 50%; width: 0.45rem; height: 0.45rem; margin-top: -0.225rem; border: solid var(--blue, #4a77b4); border-width: 0 0 2.5px 2.5px; }
+  .ba-knob::before { left: 0.7rem; transform: rotate(45deg); }
+  .ba-knob::after { right: 0.7rem; transform: rotate(-135deg); }
+  .ba-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; appearance: none; }
+  .is-ba:has(.ba-range:focus-visible) { outline: 3px solid var(--blue, #4a77b4); outline-offset: 3px; }
+  .gx-tag { position: absolute; top: 0.75rem; padding: 0.2rem 0.7rem; border-radius: 999px; background: rgba(21, 55, 93, 0.72); color: #fff; font-size: 0.8rem; font-weight: 600; pointer-events: none; }
+  .gx-tag--l { left: 0.75rem; }
+  .gx-tag--r { right: 0.75rem; }
+
+  /* Animacije: skriveno stanje tek kad JS doda .is-armed */
+  .gx.is-armed .gx-head > *, .gx.is-armed .gx-filters, .gx.is-armed .gx-item {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 0.8s var(--ease, ease), transform 0.8s var(--ease, ease);
+  }
+  .gx.is-armed .gx-item { transition-delay: calc(var(--i) * 60ms); }
+  .gx.is-armed .gx-head > :nth-child(2) { transition-delay: 90ms; }
+  .gx.is-armed .gx-filters { transition-delay: 150ms; }
+  .gx.is-armed.is-in .gx-head > *, .gx.is-armed.is-in .gx-filters, .gx.is-armed.is-in .gx-item { opacity: 1; transform: none; }
+  .gx-item.pop { animation: gx-pop 0.6s calc(var(--i) * 45ms) var(--ease, ease) both; }
+  @keyframes gx-pop { from { opacity: 0; transform: translateY(1rem) scale(0.98); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gx .gx-head > *, .gx .gx-filters, .gx .gx-item { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
+    .gx-item img, .gx-pill { transition: none; }
+  }
+</style>
+
+<script>
+  const ROW = 4;
+  const hashMap: Record<string, string> = { tepisi: 'floor', namestaj: 'furniture', vozila: 'vehicles' };
+  const nameOf: Record<string, string> = { all: 'Sve', floor: 'Tepisi', furniture: 'Nameštaj', vehicles: 'Vozila' };
+
+  const root = document.querySelector<HTMLElement>('[data-explorer]');
+  const grid = root?.querySelector<HTMLElement>('.gx-grid');
+  if (root && grid) {
+    const items = Array.from(grid.children) as HTMLElement[];
+    const pills = Array.from(root.querySelectorAll<HTMLButtonElement>('.gx-pill'));
+    const live = root.querySelector<HTMLElement>('.gx-live');
+
+    root.classList.add('is-armed');
+    new IntersectionObserver(([en], obs) => {
+      if (!en.isIntersecting) return;
+      root.classList.add('is-in');
+      obs.disconnect();
+    }, { threshold: 0, rootMargin: '0px 0px -5% 0px' }).observe(root);
+
+    // Masonry: visina iz proporcije (data-ar) i širine kolone; sva čitanja pre upisa, samo vidljivi itemi
+    const layout = () => {
+      const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+      const spans = items.map((el) => (el.hidden ? 0 : Math.ceil((el.clientWidth / (Number(el.dataset.ar) || 1) + gap) / ROW)));
+      items.forEach((el, i) => {
+        if (!spans[i]) return;
+        const v = `span ${spans[i]}`;
+        if (el.style.gridRowEnd !== v) el.style.gridRowEnd = v;
+      });
+    };
+    grid.classList.add('is-masonry');
+    let raf = 0;
+    new ResizeObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(layout);
+    }).observe(grid);
+
+    // Filter
+    const apply = (f: string, updateHash: boolean) => {
+      let shown = 0;
+      items.forEach((el) => {
+        const ok = f === 'all' || el.dataset.cat === f;
+        el.hidden = !ok;
+        el.classList.remove('pop');
+        if (ok) shown++;
+      });
+      pills.forEach((p) => p.setAttribute('aria-pressed', String(p.dataset.filter === f)));
+      layout();
+      void grid.offsetWidth; // restart animacije
+      let k = 0;
+      items.forEach((el) => { if (!el.hidden) { el.style.setProperty('--i', String(k++ % 8)); el.classList.add('pop'); } });
+      if (live) live.textContent = `${nameOf[f]}: ${shown} ${shown === 1 ? 'stavka' : 'stavki'}`;
+      if (updateHash) {
+        const h = Object.keys(hashMap).find((key) => hashMap[key] === f);
+        history.replaceState(null, '', h ? `#${h}` : location.pathname + location.search);
+      }
+    };
+    root.querySelector('.gx-filters')?.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('.gx-pill');
+      if (b?.dataset.filter) apply(b.dataset.filter, true);
+    });
+
+    const initial = hashMap[location.hash.slice(1)];
+    if (initial) apply(initial, false);
+
+    // Before/after: jedan delegirani listener, upis CSS promenljive u rAF
+    let target: HTMLElement | null = null;
+    let value = '50';
+    let sraf = 0;
+    grid.addEventListener('input', (e) => {
+      const input = e.target as HTMLInputElement;
+      if (!input.classList.contains('ba-range')) return;
+      target = input.parentElement;
+      value = input.value;
+      sraf ||= requestAnimationFrame(() => { sraf = 0; target?.style.setProperty('--pos', `${value}%`); });
+    }, { passive: true });
+  }
+</script>
