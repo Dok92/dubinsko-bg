@@ -1,0 +1,255 @@
+---
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+---
+
+<div class='cf' data-contact data-key={accessKey}>
+  <div class='cf-intro'>
+    <h3>Pošaljite poruku</h3>
+    <p>Opišite šta treba oprati i javićemo Vam se u toku radnog vremena, ponedeljak do subote, 8:00 do 21:00.</p>
+  </div>
+
+  <div class='cf-body'>
+    <form class='cf-form' novalidate>
+      <div class='cf-field'>
+        <label for='cf-name'>Ime</label>
+        <input id='cf-name' name='name' type='text' autocomplete='name' required maxlength='80' />
+        <span class='cf-err' id='cf-name-err'></span>
+      </div>
+
+      <div class='cf-field'>
+        <label for='cf-email'>Email</label>
+        <input id='cf-email' name='email' type='email' autocomplete='email' inputmode='email' required maxlength='120' />
+        <span class='cf-err' id='cf-email-err'></span>
+      </div>
+
+      <div class='cf-field'>
+        <label for='cf-message'>Poruka</label>
+        <textarea id='cf-message' name='message' rows='4' required maxlength='2000'></textarea>
+        <span class='cf-err' id='cf-message-err'></span>
+      </div>
+
+      <!-- Honeypot: ljudi ga ne vide, botovi ga popune -->
+      <input class='cf-hp' type='checkbox' name='botcheck' tabindex='-1' autocomplete='off' aria-hidden='true' />
+
+      <button class='cf-btn' type='submit'>
+        <span class='cf-btn__label'>Pošalji poruku</span>
+        <span class='cf-spin' aria-hidden='true'></span>
+      </button>
+
+      <p class='cf-status' role='status' aria-live='polite'></p>
+    </form>
+
+    <div class='cf-done' hidden tabindex='-1'>
+      <span class='cf-check' aria-hidden='true'></span>
+      <h3>Hvala, poruka je poslata.</h3>
+      <p>Javićemo Vam se čim pre.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cf {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.25rem, 4vw, 3rem);
+    max-width: var(--max, 72rem);
+    margin: clamp(1.75rem, 4vw, 3rem) auto 0;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background: var(--card, #fbf8f2);
+    border: 1px solid var(--line, #ddd4c3);
+    border-radius: var(--r, 1.25rem);
+  }
+  .cf-intro h3, .cf-done h3 {
+    margin: 0;
+    font-family: var(--serif, Georgia, serif);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.15;
+    color: var(--ink, #2a2620);
+  }
+  .cf-intro p, .cf-done p { margin: 0.7rem 0 0; color: var(--muted, #6c6355); max-width: 36ch; }
+
+  .cf-form { display: grid; gap: 1rem; }
+  .cf-field { display: grid; gap: 0.35rem; }
+  .cf-field label { font-weight: 600; font-size: 0.95rem; color: var(--ink, #2a2620); }
+  .cf-field input, .cf-field textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--line, #ddd4c3);
+    border-radius: 0.8rem;
+    background: var(--background, #fff);
+    color: var(--ink, #2a2620);
+    font: inherit;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .cf-field textarea { resize: vertical; min-height: 7rem; }
+  .cf-field input:hover, .cf-field textarea:hover { border-color: var(--blue, #4a77b4); }
+  .cf-field input:focus-visible, .cf-field textarea:focus-visible {
+    outline: none;
+    border-color: var(--blue, #4a77b4);
+    box-shadow: 0 0 0 3px rgba(42, 134, 224, 0.2);
+  }
+  .cf-field [aria-invalid='true'] { border-color: #c0392b; }
+  .cf-err { min-height: 0; font-size: 0.88rem; color: #c0392b; }
+  .cf-err:empty { display: none; }
+  .cf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+  .cf-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    justify-self: start;
+    padding: 0.9rem 1.8rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--blue, #4a77b4);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.25s, transform 0.3s var(--ease, ease);
+  }
+  .cf-btn:hover { background: var(--blue-d, #36598f); transform: translateY(-2px); }
+  .cf-btn:focus-visible { outline: 3px solid var(--blue, #4a77b4); outline-offset: 3px; }
+  .cf-btn[disabled] { opacity: 0.75; cursor: progress; transform: none; }
+  .cf-spin { display: none; width: 1rem; height: 1rem; border: 2px solid rgba(255, 255, 255, 0.45); border-top-color: #fff; border-radius: 50%; animation: cf-rot 0.7s linear infinite; }
+  .cf-btn[disabled] .cf-spin { display: inline-block; }
+  @keyframes cf-rot { to { transform: rotate(360deg); } }
+
+  .cf-status { margin: 0; min-height: 1.4em; font-size: 0.95rem; color: #c0392b; }
+  .cf-status:empty { display: none; }
+
+  .cf-done { display: grid; align-content: center; justify-items: start; min-height: 14rem; animation: cf-in 0.7s var(--ease, ease) both; }
+  .cf-done[hidden] { display: none; }
+  .cf-done:focus-visible { outline: none; }
+  .cf-check {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: var(--blue, #4a77b4);
+  }
+  .cf-check::after { content: ''; position: absolute; left: 1.1rem; top: 0.7rem; width: 0.5rem; height: 1rem; border: solid #fff; border-width: 0 3px 3px 0; transform: rotate(45deg); }
+  @keyframes cf-in { from { opacity: 0; transform: translateY(1rem); } }
+
+  /* Ulazna animacija: skriveno stanje tek kad JS doda .is-armed */
+  .cf.is-armed { opacity: 0; transform: translateY(1.25rem); transition: opacity 0.9s var(--ease, ease), transform 0.9s var(--ease, ease); }
+  .cf.is-armed.is-in { opacity: 1; transform: none; }
+
+  @media (max-width: 48rem) {
+    .cf { grid-template-columns: 1fr; }
+    .cf-btn { justify-self: stretch; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cf.is-armed { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .cf-done, .cf-spin { animation: none; }
+  }
+</style>
+
+<script>
+  const ENDPOINT = 'https://api.web3forms.com/submit';
+  const PHONE = '065 23 89 201';
+
+  document.querySelectorAll<HTMLElement>('[data-contact]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('.cf-form');
+    const done = root.querySelector<HTMLElement>('.cf-done');
+    const status = root.querySelector<HTMLElement>('.cf-status');
+    const btn = root.querySelector<HTMLButtonElement>('.cf-btn');
+    const label = root.querySelector<HTMLElement>('.cf-btn__label');
+    if (!form || !done || !status || !btn || !label) return;
+
+    // Ulazna animacija
+    root.classList.add('is-armed');
+    new IntersectionObserver(([en], obs) => {
+      if (!en.isIntersecting) return;
+      root.classList.add('is-in');
+      obs.disconnect();
+    }, { threshold: 0, rootMargin: '0px 0px -5% 0px' }).observe(root);
+
+    const fields = Array.from(form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input[name="name"], input[name="email"], textarea[name="message"]'));
+    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    const check = (el: HTMLInputElement | HTMLTextAreaElement): string => {
+      const v = el.value.trim();
+      if (!v) return el.name === 'name' ? 'Unesite ime.' : el.name === 'email' ? 'Unesite email adresu.' : 'Napišite poruku.';
+      if (el.name === 'email' && !emailRx.test(v)) return 'Unesite ispravnu email adresu.';
+      return '';
+    };
+    const show = (el: HTMLElement, msg: string) => {
+      const err = root.querySelector<HTMLElement>(`#${el.id}-err`);
+      if (err) err.textContent = msg;
+      msg ? el.setAttribute('aria-invalid', 'true') : el.removeAttribute('aria-invalid');
+      msg ? el.setAttribute('aria-describedby', `${el.id}-err`) : el.removeAttribute('aria-describedby');
+    };
+
+    // Greška nestaje čim korisnik počne da ispravlja; delegacija na formi
+    form.addEventListener('input', (e) => {
+      const el = e.target as HTMLInputElement;
+      if (el.getAttribute('aria-invalid')) show(el, check(el));
+      status.textContent = '';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+
+      let firstBad: HTMLElement | null = null;
+      for (const el of fields) {
+        const msg = check(el);
+        show(el, msg);
+        if (msg && !firstBad) firstBad = el;
+      }
+      if (firstBad) return firstBad.focus();
+
+      const key = root.dataset.key;
+      if (!key) {
+        status.textContent = `Forma trenutno nije podešena. Pozovite nas na ${PHONE}.`;
+        return;
+      }
+
+      const fd = new FormData(form);
+      // Honeypot popunjen = bot: tiho "uspeh" bez slanja
+      if (fd.get('botcheck')) return finish();
+
+      btn.disabled = true;
+      label.textContent = 'Šaljem...';
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 12000);
+
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: key,
+            subject: 'Nova poruka sa sajta: dubinsko pranje Beograd',
+            from_name: 'Sajt Clean Solutions',
+            name: String(fd.get('name')).trim(),
+            email: String(fd.get('email')).trim(),
+            message: String(fd.get('message')).trim(),
+            botcheck: '',
+          }),
+          signal: ctrl.signal,
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message || 'fail');
+        finish();
+      } catch {
+        status.textContent = `Slanje nije uspelo. Pokušajte ponovo ili pozovite ${PHONE}.`;
+        btn.disabled = false;
+        label.textContent = 'Pošalji poruku';
+      } finally {
+        clearTimeout(timer);
+      }
+    });
+
+    function finish() {
+      form!.hidden = true;
+      done!.hidden = false;
+      done!.focus();
+    }
+  });
+</script>

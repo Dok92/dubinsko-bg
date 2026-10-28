@@ -1,4 +1,6 @@
 ---
+import ContactForm from '../ContactForm.astro';
+
 const phones = [
   ['Beograd, Pančevo', '065 23 89 201'],
   ['Novi Sad, Zrenjanin', '065 23 89 202'],
@@ -19,6 +21,9 @@ const tel = (p: string) => 'tel:+381' + p.replace(/\s/g, '').slice(1);
         </a>
       ))}
     </div>
+
+    <ContactForm />
+
     <p class='note reveal'>
       <a href='mailto:dubinskobgd@gmail.com'>dubinskobgd@gmail.com</a> · <a href='mailto:dubinskons@gmail.com'>dubinskons@gmail.com</a><br />
       IV PRANJE 2020 · PIB 113019632 · MB 66511359 · Poštanska Štedionica 200-3492320101751-07
