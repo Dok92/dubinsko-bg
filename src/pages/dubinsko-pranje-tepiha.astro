@@ -5,6 +5,7 @@ import imgAfter from '../assets/carpet-after.webp';
 import Faq from '../components/accordions/faq.astro';
 import Footer from '../components/main/Footer.astro';
 import References from '../components/main/References.astro';
+import Pricing from '../components/main/Cenovnik.astro';
 
 const path = '/dubinsko-pranje-tepiha';
 const origin = Astro.site?.origin ?? '';
@@ -22,19 +23,6 @@ const steps = [
     'Usisavanje',
     'Profesionalnom mašinom izvlačimo vodu i nečistoću do dubine od 10 cm. Postupak ponavljamo dok ne bude čisto.',
   ],
-];
-
-const prices = [
-  ['Tepih / staza / itison', '250 din./m²'],
-  ['Automobil', 'od 4000 din.'],
-  ['Trosed', '2000 din.'],
-  ['Bračni krevet', '2000 din.'],
-  ['Dvosed', '1400 din.'],
-  ['Fotelja', '1000 din.'],
-  ['Stolica', '300 din.'],
-  ['Ugaona garnitura', '700 din. po sednom mestu'],
-  ['Singl dušek (jednostrano / obostrano)', '1200 / 1600 din.'],
-  ['Bračni dušek (jednostrano / obostrano)', '1600 / 2000 din.'],
 ];
 
 const faq = [
@@ -255,35 +243,10 @@ const schema = {
   </section>
 
   <References />
-
-  <section class='section' id='cena'>
-    <div class='section__head reveal'>
-      <h2>Dubinsko pranje tepiha: cena po m²</h2>
-      <p>
-        Kada je u pitanju Cena dubinskog pranja tepiha zavisi od površine, pa tačno znate koliko
-        ćete platiti pre nego što tehničar počne sa radom.
-      </p>
-    </div>
-    <div class='pricing'>
-      <dl class='plist reveal'>
-        {
-          prices.map(([n, p]) => (
-            <div class='plist__row'>
-              <>
-                <dt>{n}</dt>
-                <dd>{p}</dd>
-              </>
-            </div>
-          ))
-        }
-      </dl>
-      <div class='discounts reveal'>
-        <div class='disc'><b>10%</b><span>popust za veća pranja</span></div>
-        <div class='disc'><b>15%</b><span>popust za najveća pranja</span></div>
-      </div>
-    </div>
-    <p class='note reveal'>Primer obračuna: tepih od 10 m² košta 2500 din.</p>
-  </section>
+    <Pricing
+    pricingHeading='Dubinsko pranje tepiha: cena po m²'
+    pricingParagraph='Cena dubinskog pranja tepiha zavisi od površine, pa tačno znate koliko ćete platiti pre nego što tehničar počne sa radom.'
+  />
 
   <section class='section section--tint' id='postupak'>
     <div class='section__head reveal'>

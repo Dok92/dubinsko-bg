@@ -5,6 +5,7 @@ import imgAfter from '../assets/furniture-after.jpg';
 import Faq from '../components/accordions/faq.astro';
 import Footer from '../components/main/Footer.astro';
 import References from '../components/main/References.astro';
+import Pricing from '../components/main/Cenovnik.astro';
 
 const path = '/dubinsko-pranje-namestaja';
 const origin = Astro.site?.origin ?? '';
@@ -247,38 +248,11 @@ const schema = {
   </section>
 
   <References />
-
-  <section class='section' id='cena'>
-    <div class='section__head reveal'>
-      <h2>Dubinsko pranje nameštaja: cena po komadu</h2>
-      <p>
-        Kada je u pitanju Cena dubinskog pranja nameštaja zavisi od komada, pa tačno znate koliko
-        ćete platiti pre nego što tehničar počne sa radom.
-      </p>
-    </div>
-    <div class='pricing'>
-      <dl class='plist reveal'>
-        {
-          prices.map(([n, p]) => (
-            <div class='plist__row'>
-              <>
-                <dt>{n}</dt>
-                <dd>{p}</dd>
-              </>
-            </div>
-          ))
-        }
-      </dl>
-      <div class='discounts reveal'>
-        <div class='disc'><b>10%</b><span>popust za veća pranja</span></div>
-        <div class='disc'><b>15%</b><span>popust za najveća pranja</span></div>
-      </div>
-    </div>
-    <p class='note reveal'>
-      Primer obračuna: trosed (2000 din.) i dve fotelje (2 x 1000 din.) koštaju ukupno 4000 din.
-      Ugaona garnitura sa pet sednih mesta košta 5 x 700 = 3500 din.
-    </p>
-  </section>
+    <Pricing
+    pricingHeading='Dubinsko pranje nameštaja: cena po komadu'
+    pricingParagraph='Cena dubinskog pranja nameštaja zavisi od komada, pa tačno znate koliko ćete platiti pre nego što tehničar počne sa radom.'
+    pricingNote='Primer obračuna: trosed (2000 din.) i dve fotelje (2 x 1000 din.) koštaju ukupno 4000 din. Ugaona garnitura sa pet sednih mesta košta 5 x 700 = 3500 din.'
+  />
 
   <section class='section section--tint' id='postupak'>
     <div class='section__head reveal'>

@@ -489,55 +489,6 @@ a.card:hover .card__link::after {
   gap: 0.5rem;
 }
 
-/* Pricing */
-.pricing {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
-  gap: 1.25rem;
-  align-items: start;
-}
-.plist {
-  background: var(--card);
-  border: 1px solid var(--card-line);
-  border-radius: var(--r);
-  padding: 0.5rem 1.5rem;
-}
-.plist__row {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.9rem 0;
-}
-.plist__row + .plist__row {
-  border-top: 1px solid var(--line);
-}
-.plist dd {
-  font-weight: 700;
-  color: var(--blue-d);
-  text-align: right;
-  white-space: nowrap;
-}
-.discounts {
-  display: grid;
-  gap: 1rem;
-}
-.disc {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
-  background: linear-gradient(140deg, #e6f2fd, #d3e7f9);
-  border: 1px solid #b9d7f2;
-  border-radius: var(--r);
-}
-.disc b {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 2.3rem;
-  line-height: 1;
-  color: var(--blue-d);
-}
-
 /* Contact */
 .contact {
   display: grid;
