@@ -41,11 +41,11 @@ h1,
 h2,
 h3 {
   font-family: var(--sans);
+  font-weight: 500;
   letter-spacing: -0.015em;
 }
 h1 {
-  font-weight: 700;
-  font-family: var(--sans);
+  font-weight: 800;
 }
 a {
   color: inherit;
@@ -69,7 +69,6 @@ a {
     box-shadow 0.25s,
     transform 0.3s var(--ease);
 }
-
 .pill--lg {
   padding: 0.85rem 1.6rem;
   font-size: 1rem;
@@ -127,7 +126,7 @@ a.pill--line:hover {
 }
 .hero h1 {
   margin-top: 1.25rem;
-  font-size: clamp(2.6rem, 5.8vw, 3.5rem);
+  font-size: clamp(2.6rem, 5.8vw, 4rem);
   line-height: 1.05;
   text-wrap: balance;
 }
@@ -314,9 +313,6 @@ em {
   box-shadow: var(--shadow);
   position: relative;
 }
-.section--tint .sub {
-  background: white !important;
-}
 .section__head,
 .cards,
 .steps,
@@ -489,6 +485,72 @@ a.card:hover .card__link::after {
   gap: 0.5rem;
 }
 
+/* Pricing */
+.pricing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+.plist {
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: var(--r);
+  padding: 0.5rem 1.5rem;
+}
+.plist__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+}
+.plist__row + .plist__row {
+  border-top: 1px solid var(--line);
+}
+.plist dd {
+  font-weight: 700;
+  color: var(--blue-d);
+  text-align: right;
+  white-space: nowrap;
+}
+.discounts {
+  display: grid;
+  gap: 1rem;
+}
+.disc {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(140deg, #e6f2fd, #d3e7f9);
+  border: 1px solid #b9d7f2;
+  border-radius: var(--r);
+}
+.disc b {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 2.3rem;
+  line-height: 1;
+  color: var(--blue-d);
+}
+
+/* Price groups (Cenovnik component) */
+.pgroups {
+  display: grid;
+  gap: 1.75rem;
+}
+.pgroup h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+  line-height: 1.25;
+}
+@media (min-width: 60.01rem) {
+  .pricing .discounts {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
 /* Contact */
 .contact {
   display: grid;
@@ -499,7 +561,7 @@ a.card:hover .card__link::after {
   display: grid;
   gap: 0.3rem;
   padding: 1.5rem;
-  background: white;
+  background: var(--card);
   border: 1px solid var(--card-line);
   border-radius: var(--r);
   text-decoration: none;
@@ -622,7 +684,7 @@ a.card:hover .card__link::after {
   .hero,
   .split,
   .pricing {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   /* Hero on mobile: crumbs, h1, before/after, buttons, then lead and facts */
   .hero {
@@ -672,13 +734,39 @@ a.card:hover .card__link::after {
   }
 }
 @media (max-width: 40rem) {
+  /* Price lists: label left, price right; the price drops to its own line only when it does not fit */
+  .pgroups {
+    gap: 1.25rem;
+  }
+  .pgroup h3 {
+    font-size: 1.15rem;
+  }
+  .plist {
+    padding: 0.25rem 1rem;
+  }
   .plist__row {
-    flex-direction: column;
-    gap: 0.1rem;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.75rem;
+    padding: 0.8rem 0;
+  }
+  .plist dt {
+    flex: 1 1 10.5rem;
+    min-width: 0;
   }
   .plist dd {
-    text-align: left;
+    flex: 0 0 auto;
+    margin-left: auto;
     white-space: normal;
+    text-align: right;
+  }
+  .disc {
+    gap: 0.85rem;
+    padding: 1rem 1.1rem;
+  }
+  .disc b {
+    flex: none;
+    min-width: 3.4rem;
+    font-size: 1.9rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {
