@@ -9,7 +9,6 @@ interface Props {
 }
 const { title, description, as: Tag = 'h1' } = Astro.props;
 
-// ---- Učitavanje: /src/assets/images/{floor,furniture,vehicles}/img-N[-before|-after].webp + slike u korenu ----
 type Cat = 'floor' | 'furniture' | 'vehicles' | 'misc';
 type Item = { type: 'img' | 'ba'; cat: Cat; n: number; src?: ImageMetadata; before?: ImageMetadata; after?: ImageMetadata };
 
@@ -34,12 +33,11 @@ for (const [path, mod] of Object.entries(mods)) {
 const pairs: Item[] = [];
 for (const g of groups.values()) {
   if (g.before && g.after) pairs.push(g);
-  else singles.push({ type: 'img', cat: g.cat, n: g.n, src: g.before ?? g.after }); // nepotpun par = obična slika
+  else singles.push({ type: 'img', cat: g.cat, n: g.n, src: g.before ?? g.after }); 
 }
 
 const order: Cat[] = ['floor', 'furniture', 'vehicles', 'misc'];
 const cmp = (a: Item, b: Item) => a.n - b.n || order.indexOf(a.cat) - order.indexOf(b.cat);
-// Before/after prvi, obične slike na kraju
 const items = [...pairs.sort(cmp), ...singles.sort(cmp)];
 
 const label: Record<Cat, string> = {
@@ -143,7 +141,6 @@ const sizes = '(max-width: 40rem) 92vw, (max-width: 72rem) 33vw, 17rem';
   .gx-pill:focus-visible { outline: 3px solid var(--blue, #4a77b4); outline-offset: 3px; }
   .gx-live { margin-left: 0.4rem; color: var(--muted, #6c6355); font-size: 0.9rem; }
 
-  /* Mreža: bez JS-a običan grid, sa JS-om masonry preko redova od 4px */
   .gx-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.85rem; align-items: start; }
   .gx-grid.is-masonry { grid-auto-rows: 4px; row-gap: 0; column-gap: 0.85rem; }
   .is-masonry .gx-item { margin-bottom: 0.85rem; }
@@ -181,8 +178,6 @@ const sizes = '(max-width: 40rem) 92vw, (max-width: 72rem) 33vw, 17rem';
   .gx-tag { position: absolute; top: 0.75rem; padding: 0.2rem 0.7rem; border-radius: 999px; background: rgba(21, 55, 93, 0.72); color: #fff; font-size: 0.8rem; font-weight: 600; pointer-events: none; }
   .gx-tag--l { left: 0.75rem; }
   .gx-tag--r { right: 0.75rem; }
-
-  /* Animacije: skriveno stanje tek kad JS doda .is-armed */
   .gx.is-armed .gx-head > *, .gx.is-armed .gx-filters, .gx.is-armed .gx-item {
     opacity: 0;
     transform: translateY(1.25rem);
@@ -220,7 +215,6 @@ const sizes = '(max-width: 40rem) 92vw, (max-width: 72rem) 33vw, 17rem';
       obs.disconnect();
     }, { threshold: 0, rootMargin: '0px 0px -5% 0px' }).observe(root);
 
-    // Masonry: visina iz proporcije (data-ar) i širine kolone; sva čitanja pre upisa, samo vidljivi itemi
     const layout = () => {
       const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
       const spans = items.map((el) => (el.hidden ? 0 : Math.ceil((el.clientWidth / (Number(el.dataset.ar) || 1) + gap) / ROW)));
@@ -248,7 +242,7 @@ const sizes = '(max-width: 40rem) 92vw, (max-width: 72rem) 33vw, 17rem';
       });
       pills.forEach((p) => p.setAttribute('aria-pressed', String(p.dataset.filter === f)));
       layout();
-      void grid.offsetWidth; // restart animacije
+      void grid.offsetWidth; 
       let k = 0;
       items.forEach((el) => { if (!el.hidden) { el.style.setProperty('--i', String(k++ % 8)); el.classList.add('pop'); } });
       if (live) live.textContent = `${nameOf[f]}: ${shown} ${shown === 1 ? 'stavka' : 'stavki'}`;
@@ -265,7 +259,6 @@ const sizes = '(max-width: 40rem) 92vw, (max-width: 72rem) 33vw, 17rem';
     const initial = hashMap[location.hash.slice(1)];
     if (initial) apply(initial, false);
 
-    // Before/after: jedan delegirani listener, upis CSS promenljive u rAF
     let target: HTMLElement | null = null;
     let value = '50';
     let sraf = 0;

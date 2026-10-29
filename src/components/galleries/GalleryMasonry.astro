@@ -12,9 +12,7 @@ interface Props {
   title: string;
   description: string;
   id?: string;
-  /** h2 na stranicama sa više sekcija, h1 na samoj strani galerije */
   as?: 'h1' | 'h2';
-  /** Opciono: dugme ispod galerije (npr. link na stranu sa svim slikama) */
   moreHref?: string;
   moreLabel?: string;
 }
@@ -86,7 +84,6 @@ const { images, title, description, id = 'galerija', as: Tag = 'h2', moreHref, m
     font-size: 1.1rem;
   }
 
-  /* Bez JS-a: obična mreža. Sa JS-om (.is-masonry): redovi od 4px i span po proporciji slike */
   .gallery-masonry {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -143,7 +140,6 @@ const { images, title, description, id = 'galerija', as: Tag = 'h2', moreHref, m
     .is-masonry .gallery-item { margin-bottom: 1rem; }
   }
 
-  /* Ulazna animacija: skriveno stanje postoji tek kad JS doda .is-armed */
   .gallery.is-armed .gallery-headline > *,
   .gallery.is-armed .gallery-item,
   .gallery.is-armed .gallery-more {
@@ -164,13 +160,11 @@ const { images, title, description, id = 'galerija', as: Tag = 'h2', moreHref, m
 </style>
 
 <script>
-  // Masonry: visina svake kartice se računa iz proporcije slike (data-ar) i širine kolone,
-  // pa nema čekanja na load slika, ni layout shift-a. Sva čitanja pre svih upisa.
   const ROW = 4;
 
   function layout(grid: HTMLElement) {
     const cs = getComputedStyle(grid);
-    const gap = parseFloat(cs.columnGap) || 0; // vertikalni razmak = margin-bottom itema = isti kao columnGap
+    const gap = parseFloat(cs.columnGap) || 0;
     const items = Array.from(grid.children) as HTMLElement[];
 
     const spans = items.map((item) => {
@@ -198,7 +192,6 @@ const { images, title, description, id = 'galerija', as: Tag = 'h2', moreHref, m
     grid.classList.add('is-masonry');
 
     let raf = 0;
-    // ResizeObserver se okida odmah i pri svakoj promeni širine mreže
     new ResizeObserver(() => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => layout(grid));

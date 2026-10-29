@@ -61,7 +61,6 @@ const countUp = (el: HTMLElement) => {
   requestAnimationFrame(step);
 };
 
-// ---- One observer for every reveal, unobserve after first hit ----
 const io = new IntersectionObserver(
   (entries) => {
     for (const e of entries) {
@@ -76,7 +75,6 @@ const io = new IntersectionObserver(
 );
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-// ---- Cleaning sweep: one light pass over each grid the first time it comes into view ----
 const sweeps = document.querySelectorAll<HTMLElement>(
   '.subs, .steps, .cards, .stats__in, [data-sweep]',
 );

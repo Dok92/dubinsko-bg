@@ -135,7 +135,6 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
   .cf-check::after { content: ''; position: absolute; left: 1.1rem; top: 0.7rem; width: 0.5rem; height: 1rem; border: solid #fff; border-width: 0 3px 3px 0; transform: rotate(45deg); }
   @keyframes cf-in { from { opacity: 0; transform: translateY(1rem); } }
 
-  /* Ulazna animacija: skriveno stanje tek kad JS doda .is-armed */
   .cf.is-armed { opacity: 0; transform: translateY(1.25rem); transition: opacity 0.9s var(--ease, ease), transform 0.9s var(--ease, ease); }
   .cf.is-armed.is-in { opacity: 1; transform: none; }
 
@@ -161,7 +160,6 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     const label = root.querySelector<HTMLElement>('.cf-btn__label');
     if (!form || !done || !status || !btn || !label) return;
 
-    // Ulazna animacija
     root.classList.add('is-armed');
     new IntersectionObserver(([en], obs) => {
       if (!en.isIntersecting) return;
@@ -185,7 +183,6 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
       msg ? el.setAttribute('aria-describedby', `${el.id}-err`) : el.removeAttribute('aria-describedby');
     };
 
-    // Greška nestaje čim korisnik počne da ispravlja; delegacija na formi
     form.addEventListener('input', (e) => {
       const el = e.target as HTMLInputElement;
       if (el.getAttribute('aria-invalid')) show(el, check(el));
@@ -211,7 +208,6 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
       }
 
       const fd = new FormData(form);
-      // Honeypot popunjen = bot: tiho "uspeh" bez slanja
       if (fd.get('botcheck')) return finish();
 
       btn.disabled = true;

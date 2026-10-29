@@ -268,7 +268,6 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     });
     desktop.addEventListener('change', (e) => { if (e.matches) setOpen(false); });
 
-    // Shadow/border after scrolling: observer on a sentinel, no scroll listener
     if (sentinel) {
       new IntersectionObserver(([entry]) => {
         header.toggleAttribute('data-scrolled', !entry.isIntersecting);

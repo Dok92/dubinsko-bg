@@ -1,6 +1,4 @@
 ---
-// Unified price list shared by every page.
-// Per-page props: pricingHeading (HTML allowed, e.g. <em>), pricingParagraph (optional), pricingNote (optional).
 const { pricingHeading, pricingParagraph, pricingNote } = Astro.props;
 
 const groups = [
@@ -103,13 +101,10 @@ const discounts = [
   @media (min-width: 60.01rem) {
     .discounts { position: sticky; top: 6rem; }
   }
-
-  /* Tablet and below: one column */
   @media (max-width: 60rem) {
     .pricing { grid-template-columns: minmax(0, 1fr); }
   }
 
-  /* Phone: label left, price right; the price drops to its own line only when it does not fit */
   @media (max-width: 40rem) {
     .pgroups { gap: 1.25rem; }
     .pgroup h3 { font-size: 1.15rem; }
