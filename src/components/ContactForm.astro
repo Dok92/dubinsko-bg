@@ -28,7 +28,6 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
         <span class='cf-err' id='cf-message-err'></span>
       </div>
 
-      <!-- Honeypot: ljudi ga ne vide, botovi ga popune -->
       <input class='cf-hp' type='checkbox' name='botcheck' tabindex='-1' autocomplete='off' aria-hidden='true' />
 
       <button class='cf-btn' type='submit'>
@@ -42,7 +41,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     <div class='cf-done' hidden tabindex='-1'>
       <span class='cf-check' aria-hidden='true'></span>
       <h3>Hvala, poruka je poslata.</h3>
-      <p>Javićemo Vam se čim pre.</p>
+      <p>Javićemo Vam se uskoro.</p>
     </div>
   </div>
 </div>
@@ -70,6 +69,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
   .cf-intro p, .cf-done p { margin: 0.7rem 0 0; color: var(--muted, #6c6355); max-width: 36ch; }
 
   .cf-form { display: grid; gap: 1rem; }
+  .cf-form[hidden] { display: none; }
   .cf-field { display: grid; gap: 0.35rem; }
   .cf-field label { font-weight: 600; font-size: 0.95rem; color: var(--ink, #2a2620); }
   .cf-field input, .cf-field textarea {
@@ -243,6 +243,9 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
     });
 
     function finish() {
+      btn!.disabled = false;
+      label!.textContent = 'Pošalji poruku';
+      form!.reset();
       form!.hidden = true;
       done!.hidden = false;
       done!.focus();

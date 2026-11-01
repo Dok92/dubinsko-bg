@@ -17,6 +17,22 @@ const { title, metaDescription, ogTitle, canonical } = Astro.props;
 <!doctype html>
 <html lang='sr'>
   <head>
+    <!-- Google Tag Manager -->
+    <script is:inline async='' src='https://www.googletagmanager.com/gtm.js?id=GTM-TXFWN7X'
+    ></script>
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-TXFWN7X');
+    </script>
+    <!-- End Google Tag Manager -->
     <title>{title}</title>
 
     <!-- META -->
@@ -46,9 +62,27 @@ const { title, metaDescription, ogTitle, canonical } = Astro.props;
     <meta name='apple-mobile-web-app-title' content='' />
 
     <link rel='canonical' href={canonical} />
-
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src='https://www.googletagmanager.com/ns.html?id=GTM-TXFWN7X'
+        height='0'
+        width='0'
+        style='display:none;visibility:hidden'></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+    <script async='' src='https://www.googletagmanager.com/gtag/js?id=UA-65230928-1'></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-65230928-1');
+    </script>
     <main>
       <Header />
       <slot />
@@ -57,7 +91,7 @@ const { title, metaDescription, ogTitle, canonical } = Astro.props;
 </html>
 
 <style is:global>
-    @font-face {
+  @font-face {
     font-family: 'Inter';
     font-weight: 100 900;
     font-style: oblique 0deg 10deg;
@@ -67,37 +101,39 @@ const { title, metaDescription, ogTitle, canonical } = Astro.props;
       url('/fonts/Inter/InterVariable.woff2') format('woff2');
   }
 
-:root {
-  --primary: #184d91;
-  --ink: #15375d;
-  --foreground: #183552;
-  --teal: #287daf;
-  --muted: #55687b;
-  --line: #dbe5ef;
-  --pale: #f1f7fc;
-  --background: #fff;
+  :root {
+    --primary: #184d91;
+    --ink: #15375d;
+    --foreground: #183552;
+    --teal: #287daf;
+    --muted: #55687b;
+    --line: #dbe5ef;
+    --pale: #f1f7fc;
+    --background: #fff;
 
+    --accent: #2a86e0;
+    --card: #f5faff;
+    --card-line: #d7e6f1;
+    --shadow: 0 12px 30px #173e6810;
 
-  --accent: #2a86e0;        
-  --card: #f5faff;
-  --card-line: #d7e6f1;
-  --shadow: 0 12px 30px #173e6810;
+    --bg: var(--background);
+    --bg-2: #eaf4fc;
+    --blue: var(--accent);
+    --blue-d: var(--primary);
+    --blue-soft: white;
 
-  --bg: var(--background);
-  --bg-2: #eaf4fc;
-  --blue: var(--accent);
-  --blue-d: var(--primary);
-  --blue-soft: white;
-
-  --r: 1rem;
-  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --serif: 'Playfair Display Variable', Georgia, serif;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --pad: clamp(1rem, 5vw, 4rem);
-  --max: 72rem;
-  font-feature-settings: 'liga' 1, 'calt' 1;
-  scroll-behavior: smooth;
-}
+    --r: 1rem;
+    --sans:
+      'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --serif: 'Playfair Display Variable', Georgia, serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --pad: clamp(1rem, 5vw, 4rem);
+    --max: 72rem;
+    font-feature-settings:
+      'liga' 1,
+      'calt' 1;
+    scroll-behavior: smooth;
+  }
 </style>
 
 <script>
