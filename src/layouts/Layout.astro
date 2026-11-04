@@ -17,6 +17,19 @@ const { title, metaDescription, ogTitle, canonical } = Astro.props;
 <!doctype html>
 <html lang='sr'>
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src='https://www.googletagmanager.com/gtag/js?id=G-JQYPM78FNS'></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-JQYPM78FNS');
+    </script>
+
+    <!-- Google Tag Manager -->
     <script is:inline async src='https://www.googletagmanager.com/gtm.js?id=GTM-W6TD9Q6M'></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
@@ -57,25 +70,6 @@ const { title, metaDescription, ogTitle, canonical } = Astro.props;
     <link rel='canonical' href={canonical} />
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src='https://www.googletagmanager.com/ns.html?id=GTM-TXFWN7X'
-        height='0'
-        width='0'
-        style='display:none;visibility:hidden'></iframe></noscript
-    >
-    <!-- End Google Tag Manager (noscript) -->
-    <script async='' src='https://www.googletagmanager.com/gtag/js?id=UA-65230928-1'></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-
-      gtag('config', 'UA-65230928-1');
-    </script>
     <main>
       <Header />
       <slot />
