@@ -2,8 +2,9 @@
 const isGallery = Astro.url.pathname === '/galerija';
 
 const links = [
-  { href: '/dubinsko-pranje-tepiha', label: 'Tepisi' },
   { href: '/dubinsko-pranje-namestaja', label: 'Nameštaj' },
+  { href: '/dubinsko-pranje-itisona', label: 'Itison' },
+  { href: '/dubinsko-pranje-tepiha', label: 'Tepisi' },
   // { href: '/#auto-pranje', label: 'Auto' },
   { href: '#cenovnik', label: 'Cenovnik' },
   { href: '/galerija', label: 'Galerija' },
@@ -60,8 +61,10 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s, box-shadow 0.3s;
     animation: down 0.7s var(--ease, ease) both;
+    width: 100%;
   }
   .site-header[data-scrolled] {
+    /* background: var(--bg); */
     border-bottom-color: var(--line, #ddd4c3);
     box-shadow: 0 0.5rem 1.5rem -1.25rem rgba(42, 38, 32, 0.5);
   }
