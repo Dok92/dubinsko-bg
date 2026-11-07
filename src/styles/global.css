@@ -271,7 +271,7 @@ em {
 
 /* Stats */
 .stats {
-  padding: clamp(1.75rem, 4vw, 3rem) var(--pad) 0;
+  padding: clamp(1.75rem, 4vw, 3rem) var(--pad) clamp(3.5rem, 5vw, 7rem);
 }
 .stats__in {
   max-width: var(--max);
@@ -426,7 +426,7 @@ a.card:hover .card__link::after {
 }
 .step {
   padding: 1.5rem;
-  background: var(--card);
+  background: white;
   border: 1px solid var(--card-line);
   border-radius: var(--r);
 }
@@ -436,7 +436,7 @@ a.card:hover .card__link::after {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: var(--blue-soft);
+  background: var(--pale);
   color: var(--blue-d);
   font-weight: 700;
 }
@@ -529,6 +529,9 @@ a.card:hover .card__link::after {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
   gap: 1.25rem;
 }
+.section--tint .sub {
+  background: white;
+}
 .sub {
   padding: 1.5rem;
   background: var(--card);
@@ -616,12 +619,16 @@ a.card:hover .card__link::after {
 }
 
 @media (max-width: 60rem) {
+  .crumbs {
+    display: none;
+  }
   .hero,
   .split {
     grid-template-columns: minmax(0, 1fr);
   }
   .hero {
     gap: 0;
+    padding: clamp(1rem, 5vw, 5rem) var(--pad) clamp(3rem, 6vw, 5rem);
   }
   .hero__copy {
     display: contents;
@@ -630,26 +637,14 @@ a.card:hover .card__link::after {
     order: 0;
   }
   .hero h1 {
-    order: 1;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    margin-top: 0;
   }
   .hero .ba {
-    order: 2;
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
   }
   .hero .ba figcaption {
     display: none;
-  }
-  .hero .actions {
-    order: 3;
-    margin-top: 1.5rem;
-  }
-  .hero .lead {
-    order: 4;
-    margin-top: 1.5rem;
-  }
-  .hero .facts {
-    order: 5;
-    margin-top: 1.5rem;
   }
   .cards,
   .steps,
