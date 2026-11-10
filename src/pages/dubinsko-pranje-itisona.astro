@@ -17,7 +17,7 @@ const steps = [
 ];
 
 const faq = [
-  ['Koliko košta dubinsko pranje itisona?', 'Cena dubinskog pranja itisona je 250 din./m², ista kao za tepih i stazu. Itison od 30 m² košta 7500 din. Za veća pranja važe popusti: 10% za pranje od 6000 do 7999 din. i 15% za pranje od 8000 din., a 10% popusta imaju trudnice i stariji sugrađani.'],
+  ['Koliko košta dubinsko pranje itisona?', 'Cena dubinskog pranja itisona je 120 din./m². Za veća pranja važe popusti: 10% za pranje od 6000 do 7999 din. i 15% za pranje od 8000 din., a 10% popusta imaju trudnice i stariji sugrađani.'],
   ['Kako se pere itison koji ne može da se skine sa poda?', 'Itison peremo na licu mesta, direktno na podu. Mašine donosimo na Vašu adresu, pa ništa ne morate da skidate, rolujete niti nosite. Postupak je isti kao kod tepiha: naprskavanje, četkanje i usisavanje.'],
   ['Koliko traje sušenje itisona posle pranja?', 'Posle pranja ostaje oko 20% vlage. Pri spoljnoj temperaturi preko 20 stepeni sušenje traje do nekoliko sati, a zimi do 24 h. Kod većih površina i zatvorenih prostorija preporučujemo da prostoriju provetrite.'],
   ['Da li perete itison u kancelarijama, hotelima i igraonicama?', 'Da. Pored stanova i kuća, radimo u kancelarijama, hotelima i igraonicama. Veće površine često ulaze u popust od 10% ili 15%, a termin možemo dogovoriti tako da ne ometa rad prostora.'],
@@ -60,9 +60,9 @@ const schema = {
 ---
 
 <Layout
-  title='Dubinsko pranje itisona Beograd cena 250 din/m²'
+  title='Dubinsko pranje itisona Beograd cena 120 din/m²'
   ogTitle='Dubinsko pranje itisona Beograd'
-  metaDescription='Dubinsko pranje itisona Beograd: stanovi, kancelarije, hoteli, igraonice i dr. Cena već od 250 din/m² + popusti. Više od 30.000 klijenata u 15 godina rada!'
+  metaDescription='Dubinsko pranje itisona Beograd: stanovi, kancelarije, hoteli, igraonice i dr. Cena već od 120 din/m² + popusti. Više od 30.000 klijenata u 15 godina rada!'
   canonical={path}
 >
   <script type='application/ld+json' set:html={JSON.stringify(schema)} />
@@ -74,16 +74,15 @@ const schema = {
         </nav>
         <h1 data-in style='--i:1'>Dubinsko pranje itisona u Beogradu, <em>na licu mesta</em>.</h1>
         <p class='lead' data-in style='--i:2'>
-          Dubinsko pranje itisona u stanovima, kućama, kancelarijama, hotelima i igraonicama profesionalnom Karcher opremom, po ceni od 250 din./m². Preko 30.000 klijenata u 15 godina poslovanja.
+          Dubinsko pranje itisona u kancelarijama, hotelima, igraonicama i dr. profesionalnom Karcher opremom, po ceni već od 1€/m². Preko 30.000 klijenata u 15 godina poslovanja.
         </p>
         <div class='actions' data-in style='--i:3'>
-          <a class='pill pill--solid pill--lg' href='tel:0652389201'>Pozovite nas</a>
+          <a class='pill pill--solid pill--lg' href='tel:+381652389201'>Pozovite nas</a>
           <a class='pill pill--line pill--lg' href='#cenovnik'>Vidi cene</a>
         </div>
         <ul class='facts' data-in style='--i:4'>
-          <li>Pranje itisona 250 din./m², ista cena kao za tepih i stazu</li>
+          <li>Pranje itisona već od 1€/m²</li>
           <li>Popusti od 10% i 15% za veće površine</li>
-          <li>Dolazak besplatan u Beogradu i okolini</li>
         </ul>
       </div>
 
@@ -105,7 +104,7 @@ const schema = {
     <div class='stats__in' data-stagger>
       <div class='stat reveal'><b data-count='30000' data-suffix='+'>30.000+</b><span>zadovoljnih klijenata</span></div>
       <div class='stat reveal'><b data-count='15'>15</b><span>godina poslovanja</span></div>
-      <div class='stat reveal'><b data-count='250' data-suffix=' din'>250 din</b><span>cena pranja po m²</span></div>
+      <div class='stat reveal'><b data-count='120' data-suffix=' din'>120 din</b><span>cena pranja po m²</span></div>
       <div class='stat reveal'><b data-count='10' data-suffix=' cm'>10 cm</b><span>dubina usisavanja nečistoće</span></div>
     </div>
   </section>
@@ -114,7 +113,7 @@ const schema = {
   <Pricing
     pricingHeading='Dubinsko pranje itisona: cena po m²'
     pricingParagraph='Cena dubinskog pranja itisona zavisi od površine, pa tačno znate koliko ćete platiti pre nego što tehničar počne sa radom.'
-    pricingNote='Primer obračuna: itison od 25 m² košta 25 x 250 = 6250 din., a uz popust od 10% 5625 din. Itison od 40 m² košta 10000 din., a uz popust od 15% 8500 din.'
+    pricingNote='Primer obračuna: itison od 25 m² košta 25 x 120 = 3000 din., a uz popust od 10% 2700 din. Itison od 40 m² košta 4800 din., a uz popust od 15% 4080 din.'
   />
 
   <section class='section section--tint' id='postupak'>
@@ -136,14 +135,14 @@ const schema = {
       <article class='sub reveal'><h3>Čist do dubine</h3><p>Prljavština, prašina i fleke uklanjaju se iz celog sloja vlakana, pa itison izgleda svežije, a vlakna ostaju mekša.</p></article>
       <article class='sub reveal'><h3>Bez dugotrajnog mirisa</h3><p>Karcher prašak koji koristimo nema dugotrajan miris, pa prostorija ne miriše na hemiju nakon pranja.</p></article>
       <article class='sub reveal'><h3>Bezbedno za porodicu</h3><p>Sredstva su neškodljiva po ljude i životinje, pa se deca i kućni ljubimci vraćaju čistom itisonu čim se osuši.</p></article>
-      <article class='sub reveal'><h3>Poznata cena unapred</h3><p>Cena je 250 din./m², bez skrivenih troškova, a veće površine ulaze u popuste od 10% i 15%.</p></article>
+      <article class='sub reveal'><h3>Poznata cena unapred</h3><p>Cena je 120 din./m², bez skrivenih troškova, a veće površine ulaze u popuste od 10% i 15%.</p></article>
     </div>
   </section>
 
   <section class='section' id='prostori'>
     <div class='section__head reveal'>
       <h2>Pranje itisona u stanovima, kancelarijama i hotelima</h2>
-      <p>Itison se najčešće nalazi u prostorima sa velikom površinom i puno prolaznika. Radimo u domovima i poslovnim prostorima, po istoj ceni od <b>250 din./m²</b>.</p>
+      <p>Itison se najčešće nalazi u prostorima sa velikom površinom i puno prolaznika. Radimo u domovima i poslovnim prostorima, po istoj ceni od <b>1€/m²</b>.</p>
     </div>
     <div class='subs' data-stagger>
       <article class='sub reveal'><h3>Stanovi i kuće</h3><p>Itison u spavaćim i dnevnim sobama skuplja prašinu, grinje i neprijatne mirise. Dubinsko pranje ih uklanja bez nošenja i bez pomeranja stvari iz celog stana.</p></article>
@@ -229,7 +228,7 @@ const schema = {
           Koristimo najsavremenije profesionalne Karcher mašine i sredstva bez dugotrajnog mirisa. Prihvatamo sve eventualne reklamacije i ne obećavamo ono što ne možemo da ispunimo, zato Vas o težim flekama obaveštavamo pre početka rada.
         </p>
         <div class='actions'>
-          <a class='pill pill--solid pill--lg' href='tel:0652389201'>Pozovite 065 238 9201</a>
+          <a class='pill pill--solid pill--lg' href='tel:+381652389201'>Pozovite 065 238 9201</a>
         </div>
       </div>
       <div class='split__side reveal'>
